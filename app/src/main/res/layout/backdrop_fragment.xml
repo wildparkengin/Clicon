@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background_status_bar"
+        android:orientation="vertical">
+
+    <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/menu_widgets"
+            android:textColor="@android:color/background_light"
+            android:textSize="@dimen/font_size_main" />
+
+    <include
+            layout="@layout/camera_widget"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_margin="5dp" />
+
+    <include
+            layout="@layout/boiler_widget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    <include
+            layout="@layout/clicon_widget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    <include
+            layout="@layout/statistic_widget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    <include
+            layout="@layout/weather_widget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+</LinearLayout>

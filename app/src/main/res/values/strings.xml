@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">Clicon</string>
+    <string name="button_login">Войти</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Пароль</string>
+    <string name="forgot_password">Забыли пароль?</string>
+    <string name="keep_authorization">Оставаться в системе</string>
+    <string name="wrong_password_or_email">Неверный e-mail или пароль</string>
+    <string name="double_back_pressed">Please click BACK again to exit</string>
+
+    <string name="greetings">Добро пожаловать!\nВас приветствует помошник настройки CliCon.</string>
+    <string name="clicon_info">
+        CliCon - это программное обеспечение,позволяющие следить и управлять климатической составляющей помещений
+        как жилых, так и промышленных. CliCon позволяет наблюдать за работой всех объектов,
+        подключенных к сиcтеме в режиме “онлайн”, просматривать статистику работы устройств, получать автоматические
+        уведомления о тревожных событиях. А также к системе можно подключаться удаленно,
+        то есть настраивать приборы отопления, кондиционирования и вентиляции - дистанционно.
+    </string>
+
+    <string name="you_can_close">*Это окно вы можете вызвать в меню -> “ПОМОЩЬ”</string>
+    <string name="title_activity_main">Main2Activity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="promt_add_widgets">Добавить виджет</string>
+    <string name="menu_category">Дополнительно</string>
+    <string name="menu_devices">Устройства</string>
+    <string name="menu_widgets">Виджеты</string>
+    <string name="menu_groups">Группы</string>
+    <string name="menu_call">Связь</string>
+    <string name="menu_statistic">Статистика</string>
+    <string name="menu_help">Помощь</string>
+    <string name="menu_message">Сообщения</string>
+    <string name="menu_settings">Настройки</string>
+    <string name="menu_exit">Выход</string>
+
+    <string name="promt_widget_camera">Камера</string>
+    <string name="promt_widget_boiler">Котел</string>
+    <string name="promt_widget_clicon">КлиКон</string>
+    <string name="promt_widget_statistic">Статистика</string>
+    <string name="promt_widget_weather">Погода</string>
+
+
+
+
+</resources>

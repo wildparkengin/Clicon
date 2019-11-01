@@ -1,0 +1,63 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.wildpark.clicon"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="19"
+8-->/home/zekart/StudioProjects/Clicon/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="29" />
+9-->/home/zekart/StudioProjects/Clicon/app/src/main/AndroidManifest.xml
+10
+11    <application
+11-->/home/zekart/StudioProjects/Clicon/app/src/main/AndroidManifest.xml:5:5-27:19
+12        android:allowBackup="true"
+12-->/home/zekart/StudioProjects/Clicon/app/src/main/AndroidManifest.xml:6:13-39
+13        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+13-->[androidx.core:core:1.1.0] /home/zekart/.gradle/caches/transforms-2/files-2.1/2e2076e6216b29ee97192fe17edf1ebc/core-1.1.0/AndroidManifest.xml:24:18-86
+14        android:debuggable="true"
+15        android:icon="@mipmap/ic_launcher"
+15-->/home/zekart/StudioProjects/Clicon/app/src/main/AndroidManifest.xml:7:13-47
+16        android:label="@string/app_name"
+16-->/home/zekart/StudioProjects/Clicon/app/src/main/AndroidManifest.xml:8:13-45
+17        android:roundIcon="@mipmap/ic_launcher_round"
+17-->/home/zekart/StudioProjects/Clicon/app/src/main/AndroidManifest.xml:9:13-58
+18        android:supportsRtl="true"
+18-->/home/zekart/StudioProjects/Clicon/app/src/main/AndroidManifest.xml:10:13-39
+19        android:testOnly="true"
+20        android:theme="@style/AppTheme" >
+20-->/home/zekart/StudioProjects/Clicon/app/src/main/AndroidManifest.xml:11:13-44
+21        <activity android:name="com.wildpark.clicon.AuthorizationActivity" >
+21-->/home/zekart/StudioProjects/Clicon/app/src/main/AndroidManifest.xml:12:9-18:20
+21-->/home/zekart/StudioProjects/Clicon/app/src/main/AndroidManifest.xml:12:19-56
+22            <intent-filter>
+22-->/home/zekart/StudioProjects/Clicon/app/src/main/AndroidManifest.xml:13:13-17:29
+23                <action android:name="android.intent.action.MAIN" />
+23-->/home/zekart/StudioProjects/Clicon/app/src/main/AndroidManifest.xml:14:17-68
+23-->/home/zekart/StudioProjects/Clicon/app/src/main/AndroidManifest.xml:14:25-66
+24
+25                <category android:name="android.intent.category.LAUNCHER" />
+25-->/home/zekart/StudioProjects/Clicon/app/src/main/AndroidManifest.xml:16:17-76
+25-->/home/zekart/StudioProjects/Clicon/app/src/main/AndroidManifest.xml:16:27-74
+26            </intent-filter>
+27        </activity>
+28        <activity
+28-->/home/zekart/StudioProjects/Clicon/app/src/main/AndroidManifest.xml:19:9-23:20
+29            android:name="com.wildpark.clicon.MainActivity"
+29-->/home/zekart/StudioProjects/Clicon/app/src/main/AndroidManifest.xml:20:17-45
+30            android:label=""
+30-->/home/zekart/StudioProjects/Clicon/app/src/main/AndroidManifest.xml:21:17-33
+31            android:theme="@style/AppThemeII" >
+31-->/home/zekart/StudioProjects/Clicon/app/src/main/AndroidManifest.xml:22:9-42
+32        </activity>
+33
+34        <meta-data
+34-->/home/zekart/StudioProjects/Clicon/app/src/main/AndroidManifest.xml:24:9-26:60
+35            android:name="preloaded_fonts"
+35-->/home/zekart/StudioProjects/Clicon/app/src/main/AndroidManifest.xml:25:17-47
+36            android:resource="@array/preloaded_fonts" />
+36-->/home/zekart/StudioProjects/Clicon/app/src/main/AndroidManifest.xml:26:17-58
+37    </application>
+38
+39</manifest>
