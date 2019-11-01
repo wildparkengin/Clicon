@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.wildpark.clicon"
+    package="ua.willeco.clicon.mobile"
     android:targetSandboxVersion="2"
     android:versionCode="1"
     android:versionName="1.0" >
@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
-        <activity android:name="com.wildpark.clicon.AuthorizationActivity" >
+        <activity android:name="ua.willeco.clicon.AuthorizationActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.wildpark.clicon.MainActivity"
+            android:name="ua.willeco.clicon.MainActivity"
             android:label=""
             android:theme="@style/AppThemeII" >
         </activity>
