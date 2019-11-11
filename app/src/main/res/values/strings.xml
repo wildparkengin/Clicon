@@ -17,6 +17,8 @@
         то есть настраивать приборы отопления, кондиционирования и вентиляции - дистанционно.
     </string>
 
+    <string name="promt_auth_fingerprint">Авторизация Clicon 5</string>
+    <string name="promt_cancel">Отмена</string>
     <string name="you_can_close">*Это окно вы можете вызвать в меню -> “ПОМОЩЬ”</string>
     <string name="title_activity_main">Main2Activity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>

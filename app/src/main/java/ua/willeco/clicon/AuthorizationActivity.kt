@@ -1,16 +1,36 @@
 package ua.willeco.clicon
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.IntentFilter
+import android.net.ConnectivityManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.preference.PreferenceManager
-
+import android.widget.ImageView
 import android.widget.Toast
-import ua.willeco.clicon.utility.Validation
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.preference.PreferenceManager
 import kotlinx.android.synthetic.main.activity_authorization.*
+import ua.willeco.clicon.utility.BiometricalAuth
+import ua.willeco.clicon.utility.ReceiverConnectionChanged
+import ua.willeco.clicon.utility.Validation
 
-class AuthorizationActivity : AppCompatActivity() {
+class AuthorizationActivity : AppCompatActivity(),
+    ReceiverConnectionChanged.ConnectivityReceiverListener {
+
+    //TODO create permition to check WIFI network
+    override fun onNetworkConnectionChanged(isLocalConnected: Boolean) {
+        val iconTypeConnection = findViewById<ImageView>(R.id.img_type_connection)
+
+        if (isLocalConnected){
+            iconTypeConnection.setImageDrawable(
+                ContextCompat.getDrawable(this,R.drawable.ic_local_mode_connection))
+        }else{
+            iconTypeConnection.setImageDrawable(
+                ContextCompat.getDrawable(this,R.drawable.ic_server_mode_connection))
+        }
+    }
 
     private var doubleBackPressed:Boolean = false
     private val COMPLETED_ONBOARDING_PREF_NAME:String = "isNeedHelp"
@@ -20,8 +40,21 @@ class AuthorizationActivity : AppCompatActivity() {
         setContentView(R.layout.activity_authorization)
 
         btn_submit_auth.setOnClickListener { submitLogin() }
-    }
 
+        img_biometric_pass.setOnClickListener {
+            BiometricalAuth.initBiometrical(this)
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            registerReceiver(ReceiverConnectionChanged(),IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"))
+        }else{
+            registerReceiver(ReceiverConnectionChanged(),
+                IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+            )
+        }
+
+        BiometricalAuth.initBiometrical(this)
+    }
 
     private fun submitLogin(){
 
@@ -105,5 +138,14 @@ class AuthorizationActivity : AppCompatActivity() {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
         startActivity(intent)
+    }
+
+    fun biometricAccept(){
+        openNextActivity(false)
+    }
+
+    override fun onResume() {
+        ReceiverConnectionChanged.connectivityReceiverListener = this
+        super.onResume()
     }
 }
