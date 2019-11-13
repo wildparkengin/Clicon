@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.preference.PreferenceManager
 import kotlinx.android.synthetic.main.activity_authorization.*
+import ua.willeco.clicon.enums.ConnectionType
 import ua.willeco.clicon.utility.BiometricalAuth
 import ua.willeco.clicon.utility.ReceiverConnectionChanged
 import ua.willeco.clicon.utility.Validation
@@ -20,15 +21,22 @@ class AuthorizationActivity : AppCompatActivity(),
     ReceiverConnectionChanged.ConnectivityReceiverListener {
 
     //TODO create permition to check WIFI network
-    override fun onNetworkConnectionChanged(isLocalConnected: Boolean) {
+    override fun onNetworkConnectionChanged(type: ConnectionType) {
         val iconTypeConnection = findViewById<ImageView>(R.id.img_type_connection)
 
-        if (isLocalConnected){
-            iconTypeConnection.setImageDrawable(
-                ContextCompat.getDrawable(this,R.drawable.ic_local_mode_connection))
-        }else{
-            iconTypeConnection.setImageDrawable(
-                ContextCompat.getDrawable(this,R.drawable.ic_server_mode_connection))
+        when(type){
+            ConnectionType.NOT_CONNECTION ->{
+                iconTypeConnection.setImageDrawable(
+                    ContextCompat.getDrawable(this,R.drawable.ic_unknow_connection_mode))}
+            ConnectionType.WIFI_WPECO ->{
+                iconTypeConnection.setImageDrawable(
+                    ContextCompat.getDrawable(this,R.drawable.ic_local_mode_connection))}
+            ConnectionType.CELLURAL ->{
+                iconTypeConnection.setImageDrawable(
+                    ContextCompat.getDrawable(this,R.drawable.ic_server_mode_connection))}
+
+            else ->{iconTypeConnection.setImageDrawable(
+            ContextCompat.getDrawable(this,R.drawable.ic_server_mode_connection))}
         }
     }
 
@@ -57,7 +65,6 @@ class AuthorizationActivity : AppCompatActivity(),
     }
 
     private fun submitLogin(){
-
         val emailCheck: Boolean
         val passwordCheck: Boolean
 

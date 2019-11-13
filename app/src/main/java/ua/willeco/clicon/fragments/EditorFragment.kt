@@ -1,8 +1,9 @@
 package ua.willeco.clicon.fragments
 
 import android.os.Bundle
+import ua.willeco.clicon.fragments.fragment_factory.AppFragment
 
-class EditorFragment : androidx.fragment.app.Fragment() {
+class EditorFragment : AppFragment() {
 
     companion object{
         var KEY_POSITION:String = "position"

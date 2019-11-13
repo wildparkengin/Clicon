@@ -2,30 +2,32 @@ package ua.willeco.clicon
 
 import android.os.Bundle
 import android.os.Handler
-import androidx.core.view.GravityCompat
-import androidx.appcompat.app.ActionBarDrawerToggle
-import android.view.MenuItem
-import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
-import android.widget.*
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import ua.willeco.clicon.adapters.AddWidgetAdapter
-import ua.willeco.clicon.adapters.DevicesUserAdapter
-import ua.willeco.clicon.adapters.UserWidgetAdapter
-import ua.willeco.clicon.entities.TestModel
+import com.google.android.material.navigation.NavigationView
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.app_bar_main.*
+import ua.willeco.clicon.adapters.AddWidgetAdapter
 import ua.willeco.clicon.animation.HideShowAnimation
 import ua.willeco.clicon.entities.widgets.EnableWidget
+import ua.willeco.clicon.enums.AppSection
 import ua.willeco.clicon.enums.EventType
 import ua.willeco.clicon.event_bus.RxBus
 import ua.willeco.clicon.event_bus.RxEvent
-import io.reactivex.disposables.Disposable
+import ua.willeco.clicon.fragments.FragmentDevicesList
+import ua.willeco.clicon.fragments.fragment_factory.FragmentFactory
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -33,6 +35,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private var doubleBackPressed:Boolean = false
     private var mBottomSheetBehavior: BottomSheetBehavior<View?>? = null
     private lateinit var changeTitleBarDisposable: Disposable
+    private lateinit var transitionFragmentTag:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,10 +54,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         navView.setNavigationItemSelectedListener(this)
-
-        initRecyclerByType(1)
         initLeftWidgetPanel()
         initRxBusEvent()
+
+        changeChildFragment(AppSection.DEVICE_LIST_FRAGMENT,false, isReplace = false)
     }
 
     override fun onBackPressed() {
@@ -71,13 +74,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 if (it.state == BottomSheetBehavior.STATE_EXPANDED) {
                     it.state = BottomSheetBehavior.STATE_COLLAPSED
                 }else{
-                    this.doubleBackPressed = true
-
-                    Toast.makeText(this, getString(R.string.double_back_pressed), Toast.LENGTH_SHORT).show()
-
-                    Handler().postDelayed({ doubleBackPressed = false }, 2000)
+                    return
                 }
             }
+
+            this.doubleBackPressed = true
+
+            Toast.makeText(this, getString(R.string.double_back_pressed), Toast.LENGTH_SHORT).show()
+
+            Handler().postDelayed({ doubleBackPressed = false }, 2000)
         }
     }
 
@@ -98,10 +103,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_devices -> {
-                initRecyclerByType(0)
+                onSendToFragmentEvent(AppSection.DEVICE_LIST_FRAGMENT,0)
             }
             R.id.nav_widgets -> {
-                initRecyclerByType(1)
+                onSendToFragmentEvent(AppSection.DEVICE_LIST_FRAGMENT,1)
                 //showHideSelectWidgetPanel()
             }
             R.id.nav_groups -> {
@@ -133,36 +138,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             if (it.changesEvent== EventType.CLOSELEFTPANEL){
                 showHideSelectWidgetPanel()
             }
-        }
-    }
-
-    private fun initRecyclerByType(type:Int){
-        val mainRecycler:RecyclerView = findViewById(R.id.rcv_main)
-        val txtCardAddItemType:TextView = findViewById(R.id.txt_type_recycler_item_add)
-
-        mainRecycler.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        val dataWidget = ArrayList<TestModel>()
-        dataWidget.add(TestModel("Phone", 1))
-        dataWidget.add(TestModel("Watch", 2))
-        dataWidget.add(TestModel("Note", 3))
-        dataWidget.add(TestModel("Pin", 4))
-        var typeAdapter: RecyclerView.Adapter<*>? = null
-
-        when(type){
-            0->{
-                typeAdapter = DevicesUserAdapter(dataWidget)
-                txtCardAddItemType.text = "Add device"
-            }
-            1->{
-                typeAdapter = UserWidgetAdapter(dataWidget)
-                txtCardAddItemType.text = "Add widget"
-            }
-        }
-        //val widgetAdapter = UserWidgetAdapter(dataWidget)
-        //mainRecycler.adapter = widgetAdapter
-        if (typeAdapter!=null){
-            mainRecycler.adapter = typeAdapter
-            (mainRecycler.adapter as RecyclerView.Adapter<*>).notifyDataSetChanged()
         }
     }
 
@@ -204,5 +179,45 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val frameSelectWidget = findViewById<FrameLayout>(R.id.frame_widget_select)
 
         HideShowAnimation.setAnimation(frameSelectWidget)
+    }
+
+    private fun onSendToFragmentEvent(section: AppSection, param:Any){
+        when(section){
+            AppSection.DEVICE_LIST_FRAGMENT ->{
+                val deviceFragment =
+                    supportFragmentManager.findFragmentByTag(transitionFragmentTag) as FragmentDevicesList
+                try {
+                    deviceFragment.initRecyclerByType(param as Int)
+                }catch (e:Exception){
+                    e.printStackTrace()
+                }
+
+            }
+        }
+    }
+
+    private fun changeChildFragment(section: AppSection, addToStack:Boolean, isReplace:Boolean){
+        val fr = FragmentFactory().getFragment(section)
+        val frTransiction = supportFragmentManager.beginTransaction()
+
+        if (!isReplace){
+            fr?.let {
+                frTransiction.add(R.id.frame_container, it, fr.getFragmentTag())
+                supportFragmentManager.popBackStack()
+                transitionFragmentTag = fr.getFragmentTag()
+            }
+        }else {
+            fr?.let {
+                frTransiction.replace(R.id.frame_container, it)
+                if (addToStack){
+                    frTransiction.addToBackStack(fr.getFragmentTag())
+                }else{
+                    supportFragmentManager.popBackStack()
+                }
+                transitionFragmentTag = fr.getFragmentTag()
+            }
+        }
+
+        frTransiction.commit()
     }
 }

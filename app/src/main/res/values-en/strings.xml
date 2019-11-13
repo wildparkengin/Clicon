@@ -45,4 +45,7 @@
     <string name="promt_widget_clicon">КлиКон</string>
     <string name="promt_widget_statistic">Статистика</string>
     <string name="promt_widget_weather">Погода</string>
+
+    <string name="promt_setting_first_tab">Info</string>
+    <string name="promt_setting_second_tab">Settings</string>
 </resources>
