@@ -21,7 +21,7 @@ class BiometricalAuth {
                 }
 
                 override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
-                    (activity as AuthorizationActivity).biometricAccept()
+                    (activity as AuthorizationActivity).getAuthorizationRequest()
                     super.onAuthenticationSucceeded(result)
                 }
 

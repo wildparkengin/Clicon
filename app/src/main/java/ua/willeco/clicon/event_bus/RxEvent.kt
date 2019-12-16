@@ -4,6 +4,7 @@ import ua.willeco.clicon.enums.EventType
 
 class RxEvent {
     data class EventChanges(
-        val changesEvent: EventType
+        val changesEvent: EventType,
+        val data:Any
     )
 }

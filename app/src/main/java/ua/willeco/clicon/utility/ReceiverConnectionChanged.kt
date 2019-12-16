@@ -39,8 +39,9 @@ class ReceiverConnectionChanged : BroadcastReceiver() {
                         hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ->{
                             val mg = context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
                             val info:WifiInfo = mg.connectionInfo
+                            val p = mg.scanResults
                             //TODO insert correct name SSID (need to accept for what need check)
-                            if (info.ssid.contains("x0r-test")){
+                            if (info.ssid.contains("WPEco_AP_RSB")){
                                 ConnectionType.WIFI_WPECO
                             }else{
                                 ConnectionType.WIFI
@@ -57,7 +58,7 @@ class ReceiverConnectionChanged : BroadcastReceiver() {
                 cm.activeNetworkInfo?.run {
                     if (type == ConnectivityManager.TYPE_WIFI) {
                         val info = wifiManager?.connectionInfo
-                        if (info?.ssid?.contains("x0r-test")!!){
+                        if (info?.ssid?.contains("WPEco_AP_RSB")!!){
                             ConnectionType.WIFI_WPECO
                         }else{
                             ConnectionType.WIFI
@@ -72,7 +73,6 @@ class ReceiverConnectionChanged : BroadcastReceiver() {
                 }
             }
         }
-
         return typeConnection
     }
 

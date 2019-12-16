@@ -35,7 +35,7 @@ class AddWidgetAdapter(private val context:Context, private val widgetList: Arra
         holder.title.text = widgetList[position].wTitle
         holder.imgBg.background = getUserDrawable(widgetList[position].wBackground)
         holder.crAddWidget.setOnClickListener {
-            RxBus.publish(RxEvent.EventChanges(EventType.CLOSELEFTPANEL))
+            RxBus.publish(RxEvent.EventChanges(EventType.CLOSELEFTPANEL,""))
         }
     }
 

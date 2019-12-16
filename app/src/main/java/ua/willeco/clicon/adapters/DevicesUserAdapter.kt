@@ -7,9 +7,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import ua.willeco.clicon.R
 import ua.willeco.clicon.entities.TestModel
+import ua.willeco.clicon.enums.EventType
+import ua.willeco.clicon.event_bus.RxBus
+import ua.willeco.clicon.event_bus.RxEvent
 
 class DevicesUserAdapter (private val userDevicesList: ArrayList<TestModel>):RecyclerView.Adapter<DevicesUserAdapter.ViewHolder>(){
 
@@ -27,21 +31,13 @@ class DevicesUserAdapter (private val userDevicesList: ArrayList<TestModel>):Rec
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.name.text = userDevicesList[position].name
-        holder.btnDeleteDevice.setOnClickListener{
-            if (userDevicesList.isNotEmpty()){
-                if (userDevicesList.size<2){
-                    Toast.makeText(context,"Fuck off",Toast.LENGTH_SHORT).show()
-                }else{
-                    userDevicesList.removeAt(position)
-                    notifyItemRemoved(position)
-                }
-            }
+        holder.cardItem.setOnClickListener {
+            RxBus.publish(RxEvent.EventChanges(EventType.OPEN_BOILER_SETTINGS,userDevicesList[position].name))
         }
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.txt_device_title)
-        val btnDeleteDevice: Button = itemView.findViewById(R.id.btn_delete_device)
-        //val count = itemView.findViewById<TextView>(R.id.tvCount)
+        val cardItem:CardView = itemView.findViewById(R.id.card_device_item)
     }
 }

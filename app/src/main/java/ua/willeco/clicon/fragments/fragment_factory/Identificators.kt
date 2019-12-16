@@ -7,7 +7,7 @@ class Identificators {
 
         //Model requests
 
-        const val REGISTRATION = "registration"
+        const val REGISTRATION = "autentificate"
         const val AUTHORIZATION = "authentication"
         const val MAIN_DATA = "get_main_data"
         const val PRICE_DATA = "get_price"

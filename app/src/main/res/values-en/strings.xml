@@ -8,6 +8,7 @@
     <string name="keep_authorization">Stay on the system</string>
     <string name="wrong_password_or_email">Incorrect e-mail or password</string>
     <string name="double_back_pressed">Please click BACK again to exit</string>
+    <string name="promt_fail_to_connect">Failure connect to server</string>
 
     <string name="greetings">Добро пожаловать!\nВас приветствует помошник настройки CliCon.</string>
     <string name="clicon_info">
@@ -48,4 +49,8 @@
 
     <string name="promt_setting_first_tab">Info</string>
     <string name="promt_setting_second_tab">Settings</string>
+
+    <string name="error_code_unexpected">Unexpected error</string>
+    <string name="error_code10">Invalid login or password | User not found</string>
+    <string name="error_code11">User banned</string>
 </resources>

@@ -7,6 +7,7 @@
     <string name="keep_authorization">Оставаться в системе</string>
     <string name="wrong_password_or_email">Неверный e-mail или пароль</string>
     <string name="double_back_pressed">Please click BACK again to exit</string>
+    <string name="promt_fail_to_connect">Нет подключения к серверу</string>
 
     <string name="greetings">Добро пожаловать!\nВас приветствует помошник настройки CliCon.</string>
     <string name="clicon_info">
@@ -47,6 +48,10 @@
 
     <string name="promt_setting_first_tab">Данные</string>
     <string name="promt_setting_second_tab">Настройки</string>
+
+    <string name="error_code_unexpected">Неизвесная ошибка</string>
+    <string name="error_code10">Неверный логин или пароль | Пользователь не найден</string>
+    <string name="error_code11">Пользователь заблокирован</string>
 
 
 

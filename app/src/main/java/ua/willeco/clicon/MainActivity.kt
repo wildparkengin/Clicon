@@ -27,15 +27,22 @@ import ua.willeco.clicon.enums.EventType
 import ua.willeco.clicon.event_bus.RxBus
 import ua.willeco.clicon.event_bus.RxEvent
 import ua.willeco.clicon.fragments.FragmentDevicesList
+import ua.willeco.clicon.fragments.FragmentWidgetsList
 import ua.willeco.clicon.fragments.fragment_factory.FragmentFactory
+import ua.willeco.clicon.utility.SystemUtility
+import kotlin.properties.Delegates
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private var doubleBackPressed:Boolean = false
     private var mBottomSheetBehavior: BottomSheetBehavior<View?>? = null
-    private lateinit var changeTitleBarDisposable: Disposable
+    private lateinit var rxBusDisposable: Disposable
     private lateinit var transitionFragmentTag:String
+
+    private var isTransactionSafe:Boolean = false
+    private var isTransactionPending:Boolean = false
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,8 +63,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navView.setNavigationItemSelectedListener(this)
         initLeftWidgetPanel()
         initRxBusEvent()
-
-        changeChildFragment(AppSection.DEVICE_LIST_FRAGMENT,false, isReplace = false)
+        changeChildFragment(AppSection.DEVICE_LIST_FRAGMENT, addToStack = false, isReplace = false)
     }
 
     override fun onBackPressed() {
@@ -66,6 +72,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
             if (doubleBackPressed) {
+                //SystemUtility.exitFromApp(this)
                 super.onBackPressed()
                 return
             }
@@ -103,10 +110,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_devices -> {
-                onSendToFragmentEvent(AppSection.DEVICE_LIST_FRAGMENT,0)
+                changeChildFragment(AppSection.DEVICE_LIST_FRAGMENT,false, isReplace = true)
             }
             R.id.nav_widgets -> {
-                onSendToFragmentEvent(AppSection.DEVICE_LIST_FRAGMENT,1)
+                changeChildFragment(AppSection.WIDGETS_LIST_FRAGMENT,false, isReplace = true)
                 //showHideSelectWidgetPanel()
             }
             R.id.nav_groups -> {
@@ -133,10 +140,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    fun initRxBusEvent(){
-        changeTitleBarDisposable = RxBus.listen(RxEvent.EventChanges::class.java).subscribe{
-            if (it.changesEvent== EventType.CLOSELEFTPANEL){
-                showHideSelectWidgetPanel()
+    private fun initRxBusEvent(){
+        rxBusDisposable = RxBus.listen(RxEvent.EventChanges::class.java).subscribe{
+            when(it.changesEvent){
+                EventType.CLOSELEFTPANEL ->{showHideSelectWidgetPanel()}
+                EventType.OPEN_BOILER_SETTINGS ->{
+                    changeChildFragment(AppSection.BOILER_SETTINGS_FRAGMENT,true, isReplace = true)}
+                EventType.OPEN_CLICON_SETTINGS ->{}
+                else -> {
+                    return@subscribe
+                }
             }
         }
     }
@@ -144,7 +157,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun configureAddItemType(itemType:Int) {
         // Get the fragment reference
         val addNewItemType = findViewById<CardView>(R.id.crd_empty)
-
         addNewItemType.setOnClickListener {
             when(itemType){
                 0->{}
@@ -155,6 +167,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun initLeftWidgetPanel(){
         val imgClosePanel = findViewById<ImageView>(R.id.img_close_left_panel)
+        val rcv:RecyclerView = findViewById(R.id.rcv_add_widget)
 
         imgClosePanel.setOnClickListener {
             showHideSelectWidgetPanel()
@@ -168,31 +181,32 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         listWidget.add(EnableWidget("Сообщения","clicon"))
         listWidget.add(EnableWidget("Погода","statistic"))
 
-        val rcv:RecyclerView = findViewById(R.id.rcv_add_widget)
-
-        rcv.layoutManager = LinearLayoutManager(this)
-
+        rcv.layoutManager = LinearLayoutManager(this) as RecyclerView.LayoutManager?
         rcv.adapter = AddWidgetAdapter(this,listWidget)
     }
 
     private fun showHideSelectWidgetPanel(){
         val frameSelectWidget = findViewById<FrameLayout>(R.id.frame_widget_select)
-
         HideShowAnimation.setAnimation(frameSelectWidget)
     }
 
     private fun onSendToFragmentEvent(section: AppSection, param:Any){
         when(section){
-            AppSection.DEVICE_LIST_FRAGMENT ->{
-                val deviceFragment =
-                    supportFragmentManager.findFragmentByTag(transitionFragmentTag) as FragmentDevicesList
+            AppSection.DEVICE_LIST_FRAGMENT -> {
                 try {
-                    deviceFragment.initRecyclerByType(param as Int)
+                    val deviceFragment =
+                        supportFragmentManager.findFragmentByTag(transitionFragmentTag) as FragmentDevicesList
+                    deviceFragment.initDeviceRecycler()
                 }catch (e:Exception){
                     e.printStackTrace()
                 }
-
             }
+            AppSection.WIDGETS_LIST_FRAGMENT -> {
+                val widgetFragment =
+                    supportFragmentManager.findFragmentByTag(transitionFragmentTag) as FragmentWidgetsList
+                widgetFragment.recyclerWidgets
+            }
+            else -> {}
         }
     }
 
@@ -217,7 +231,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 transitionFragmentTag = fr.getFragmentTag()
             }
         }
-
         frTransiction.commit()
     }
+
+    override fun onStop() {
+        //SystemUtility.exitFromApp(this)
+        super.onStop()
+    }
+
 }

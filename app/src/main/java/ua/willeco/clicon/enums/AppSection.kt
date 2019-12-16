@@ -1,7 +1,8 @@
 package ua.willeco.clicon.enums
 
-import ua.willeco.clicon.fragments.fragment_factory.Identificators
-
-enum class AppSection(val type_request:String) {
-    DEVICE_LIST_FRAGMENT(Identificators.WORKS_DATA)
+enum class AppSection {
+    WIDGETS_LIST_FRAGMENT,
+    DEVICE_LIST_FRAGMENT,
+    BOILER_SETTINGS_FRAGMENT,
+    CLICON_SETTINGS_FRAGMENT
 }
