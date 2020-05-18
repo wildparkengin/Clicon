@@ -1,6 +1,5 @@
 package ua.willeco.clicon.http
 
-import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -21,22 +20,22 @@ class RetrofitClient {
         const val BASE_URL = "https://80.252.241.65:90/server/"
         const val AP_RSB = "http://192.168.42.1/web_local/"
 
-        fun makeRetrofitService(url:ConnectionType): Requests {
+        fun makeRetrofitService(url:ConnectionType): ApiRequests {
 
             val interceptor = HttpLoggingInterceptor()
 
             interceptor.level = HttpLoggingInterceptor.Level.BODY
             val client: OkHttpClient.Builder = OkHttpClient.Builder().addInterceptor(interceptor)
-            val unsafeClient = unSafeOkHttpClient()
-            val gson = GsonBuilder()
-                .setLenient()
-                .create()
+//            val unsafeClient = unSafeOkHttpClient()
+//            val gson = GsonBuilder()
+//                .setLenient()
+//                .create()
 
             return Retrofit.Builder()
                 .baseUrl(getTypeRequest(url))
                 .addConverterFactory(GsonConverterFactory.create()) //GsonConverterFactory.create() //GsonConverterFactory.create(gson)
-                .client(unsafeClient.build()) //client.build()
-                .build().create(Requests::class.java)
+                .client(client.build()) //unsafeClient.build()
+                .build().create(ApiRequests::class.java)
         }
 
         private fun getTypeRequest(type:ConnectionType):String{

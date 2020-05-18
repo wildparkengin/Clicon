@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import ua.willeco.clicon.R
-import ua.willeco.clicon.entities.TestModel
+import ua.willeco.clicon.model.TestModel
 
 class UserWidgetAdapter(private val userWidgetList: ArrayList<TestModel>):
 

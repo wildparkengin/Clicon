@@ -4,9 +4,11 @@ import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
+import android.os.Build
 import android.text.TextUtils
 import android.util.Base64
 import android.widget.EditText
+import androidx.biometric.BiometricManager
 import androidx.core.content.ContextCompat
 import org.mindrot.jbcrypt.BCrypt
 import ua.willeco.clicon.R
@@ -28,25 +30,14 @@ class Validation {
         /**
          * Method that check input field to empty value
          *
-         * @param editText The editText layout
+         * @param editTextValue data from editText
          * @return The resulting of empty data in editText
          */
 
-        fun isEmptyFieldEntered(editText: EditText):Boolean {
-            val s = editText.text.toString().trim()
-            return s.isEmpty()
+        fun isEmptyFieldEntered(editTextValue: String):Boolean {
+            return editTextValue.isEmpty()
         }
 
-        /**
-         * Method that show error type to user
-         *
-         * @param editText The editText layout
-         * @param message The error message to show user
-         */
-
-        fun setErrorToEditText(editText: EditText,message:String){
-            editText.error = message
-        }
 
         /**
          * Method that check input email field
@@ -66,13 +57,8 @@ class Validation {
          * @return The resulting of input password data editText
          */
 
-        fun isValidPasswordLenth(text: String):Boolean{
+        fun isValidTextInputData(text: String):Boolean{
             return text.length >= 4
-        }
-
-        fun bcRypt(password:String):String{
-            val hal = BCrypt.hashpw(password, BCrypt.gensalt(10))
-            return "1: $hal"
         }
 
         fun isLocationPermissionAccess(activity: Activity):Boolean{
@@ -80,43 +66,7 @@ class Validation {
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
         }
 
-        fun cryptPasswordAES(password:String):String{
-            try {
-                val cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
-                cipher.init(Cipher.ENCRYPT_MODE, getKey())
-                return Base64.encodeToString(cipher.doFinal(password.toByteArray(StandardCharsets.UTF_8)),
-                    Base64.DEFAULT)
-            }catch (e:Exception){
-                e.printStackTrace()
-            }
-            return ""
-        }
-
-        fun decryptValueAES(value:String):String{
-            try {
-                val cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
-                cipher.init(Cipher.DECRYPT_MODE, getKey())
-                return String(cipher.doFinal(Base64.decode(value,Base64.DEFAULT)))
-            }catch (e:Exception){
-                e.printStackTrace()
-            }
-            return ""
-        }
-
-        private fun getKey(): SecretKeySpec? {
-            val sha:MessageDigest
-            try {
-                var key = "aZ&2FEtE2F8uqekr".toByteArray(StandardCharsets.UTF_8)
-                sha = MessageDigest.getInstance("SHA-1")
-                key = sha.digest(key)
-                key = key.copyOf(16)
-                return SecretKeySpec(key,"AES")
-            }catch (e:NoSuchAlgorithmException){
-                e.printStackTrace()
-            }
-            return null
-        }
-
+        //TODO delete after use usable pattern
         fun validationRequestErrors(context: Context,type:Any):String{
             return if (type is Int){
                 when(type){
@@ -126,6 +76,20 @@ class Validation {
                 }
             }else
                 type.toString()
+        }
+
+        fun isAvailableFingerPrint(context: Context): Boolean {
+            var isAvailable:Boolean = false
+            val fingerprintManager = BiometricManager.from(context)
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                //Fingerprint API only available on from Android 6.0 (M)
+                if (fingerprintManager.canAuthenticate()!= BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE && fingerprintManager.canAuthenticate()!= BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED) { //||fingerprintManager.canAuthenticate()!=BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED
+                    isAvailable = true
+                }
+            }
+            return isAvailable
+
         }
     }
 

@@ -11,11 +11,8 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import ua.willeco.clicon.R
-import ua.willeco.clicon.entities.widgets.EnableWidget
+import ua.willeco.clicon.model.widgets.EnableWidget
 import ua.willeco.clicon.enums.AvailaibleWidget
-import ua.willeco.clicon.enums.EventType
-import ua.willeco.clicon.event_bus.RxBus
-import ua.willeco.clicon.event_bus.RxEvent
 
 class AddWidgetAdapter(private val context:Context, private val widgetList: ArrayList<EnableWidget>):
 
@@ -34,9 +31,6 @@ class AddWidgetAdapter(private val context:Context, private val widgetList: Arra
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.title.text = widgetList[position].wTitle
         holder.imgBg.background = getUserDrawable(widgetList[position].wBackground)
-        holder.crAddWidget.setOnClickListener {
-            RxBus.publish(RxEvent.EventChanges(EventType.CLOSELEFTPANEL,""))
-        }
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

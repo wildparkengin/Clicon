@@ -1,17 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/transparent</item>
-        <item name="colorPrimaryDark">@color/transparent</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-        <item name="checkboxStyle">@style/MyCheckBoxStyle</item>
-    </style>
-
-    <style name="AppThemeII" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="MainAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/transparent</item>
         <item name="colorControlNormal">@android:color/white</item>
@@ -42,7 +32,7 @@
         <item name="colorControlNormal">#8AFFFFFF</item>
         <item name="colorControlActivated">@color/colorAccent</item>
     </style>
-    <style name="AppTheme.NoActionBar">
+    <style name="MainAppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
@@ -53,7 +43,7 @@
 
 
     <!-- Кастомная AppTheme.Launcher. Устанавливает в качестве фона вашу drawable -->
-    <style name="AppTheme.Launcher">
+    <style name="MainAppTheme.Launcher">
         <item name="android:windowBackground">@drawable/clicon</item>
         <!-- для Android 5+ вы можете поменять цвет colorPrimaryDark, чтобы соответствовать цвету windowBackground -->
         <!-- <item name="colorPrimaryDark">@android:color/white</item> -->
