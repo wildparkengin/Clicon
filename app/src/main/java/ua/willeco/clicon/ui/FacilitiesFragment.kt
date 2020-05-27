@@ -42,19 +42,19 @@ class FacilitiesFragment :BaseFragment<FacilitiesPresenter>(),FacilitiesContract
     }
 
     override fun showError(error: String) {
-        println()
+
     }
 
     override fun showDialogToAddFacility() {
-        println()
+
     }
 
     override fun showLoader() {
-        println()
+
     }
 
     override fun closeLoader() {
-        println()
+
     }
 
     override fun loadFacilitiesRecycler(facilitiesDataResponse: GetFacilitiesListResponse) {
