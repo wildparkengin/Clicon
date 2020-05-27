@@ -10,28 +10,27 @@ import android.os.Bundle
 import android.os.Handler
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.preference.PreferenceManager
-import kotlinx.android.synthetic.main.activity_authorization.*
 import ua.willeco.clicon.R
+import ua.willeco.clicon.databinding.ActivityAuthorizationBinding
 import ua.willeco.clicon.enums.ConnectionType
-import ua.willeco.clicon.http.ResponcesApi
-import ua.willeco.clicon.http.RetrofitClient
-import ua.willeco.clicon.utility.BiometricalAuth
+import ua.willeco.clicon.mvp.BaseActivity
+import ua.willeco.clicon.mvp.contract.AuthorizationActivityContract
+import ua.willeco.clicon.mvp.presenter.AuthorizationActivityPresenter
 import ua.willeco.clicon.receivers.ReceiverConnectionChanged
 import ua.willeco.clicon.utility.Validation
-import ua.willeco.clicon.utility.ViewsElementsUtill
 
 
-class AuthorizationActivity : AppCompatActivity(),
-    ReceiverConnectionChanged.ConnectivityReceiverListener{
+class AuthorizationActivity : BaseActivity<AuthorizationActivityPresenter>(),
+    ReceiverConnectionChanged.ConnectivityReceiverListener,AuthorizationActivityContract.View{
 
+    lateinit var binding: ActivityAuthorizationBinding
+    lateinit var loaderDialog: AlertDialog
 
     private val PERMISSION_REQUEST_CODE = 123
     private var doubleBackPressed:Boolean = false
-    private val COMPLETED_ONBOARDING_PREF_NAME:String = "isNeedHelp"
     private var connectionBroadcastReceiver: BroadcastReceiver? = null
     private var connectionType = ConnectionType.NOT_CONNECTION
 
@@ -68,13 +67,13 @@ class AuthorizationActivity : AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_authorization)
-
-        btn_submit_auth.setOnClickListener { submitLogin() }
-
-        img_biometric_pass.setOnClickListener {
-            BiometricalAuth.initBiometrical(this)
-        }
+        binding = ActivityAuthorizationBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+        initView()
+//        img_biometric_pass.setOnClickListener {
+//            BiometricalAuth.initBiometrical(this)
+//        }
 
         connectionBroadcastReceiver =
             ReceiverConnectionChanged()
@@ -111,23 +110,6 @@ class AuthorizationActivity : AppCompatActivity(),
         }
     }
 
-    private fun submitLogin(){
-    }
-
-    fun getAuthorizationRequest(){
-        val login = edt_email_auth.text.trim().toString()
-        val passw = edt_password_auth.text.trim().toString()
-//
-//        if (!Validation.isEmptyFieldEntered(edt_email_auth)){
-//            if (Validation.isValidTextInputData(passw)){
-//                val service = RetrofitClient.RetrofitFactory.makeRetrofitService(connectionType)
-//                ResponcesApi.authentificateRequest(this,service,
-//                    login,passw)
-//            }
-//            //showOnBoardingFragmentToUser()
-//        }
-    }
-
     override fun onBackPressed() {
         if (doubleBackPressed) {
             super.onBackPressed()
@@ -136,34 +118,68 @@ class AuthorizationActivity : AppCompatActivity(),
 
         this.doubleBackPressed = true
 
-        Toast.makeText(this, getString(R.string.double_back_pressed), Toast.LENGTH_SHORT).show()
+        showToast(getString(R.string.double_back_pressed))
 
         Handler().postDelayed({ doubleBackPressed = false }, 2000)
-    }
-
-    private fun showOnBoardingFragmentToUser(){
-
-        PreferenceManager.getDefaultSharedPreferences(this).apply {
-            openNextActivity(getBoolean(COMPLETED_ONBOARDING_PREF_NAME, true))
-        }
-    }
-
-    private fun openNextActivity(isNeedHelp:Boolean){
-        val intent:Intent = if (isNeedHelp){
-            Intent(this, MainActivity::class.java)
-        }else{
-            Intent(this, MainActivity::class.java)
-        }
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-
-        unregisterReceiver(connectionBroadcastReceiver)
-        startActivity(intent)
     }
 
     override fun onResume() {
         ReceiverConnectionChanged.connectivityReceiverListener = this
         super.onResume()
+    }
+
+    override fun initView() {
+        loaderDialog = LoaderDialog().createProgressDialog(this)
+
+        binding.btnSubmitAuth.setOnClickListener {
+            onClickButtonAuth()
+        }
+    }
+
+    override fun onClickButtonAuth() {
+        presenter.validateAuthEnteredData(
+            binding.edtEmailAuth.text.toString(),
+            binding.edtPasswordAuth.text.toString()
+        )
+    }
+
+    override fun getStateCheckBox(): Boolean {
+        return binding.checkSaveUserData.isChecked
+    }
+
+    override fun showToast(message: String?) {
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showLoader() {
+        loaderDialog.show()
+    }
+
+    override fun closeLoader() {
+        loaderDialog.dismiss()
+    }
+
+    override fun setErrorMessageToLoginEditText() {
+        binding.edtEmailAuth.error = "Short"
+    }
+
+    override fun setErrorMessageToPasswordEditText() {
+        binding.edtPasswordAuth.error = "Short"
+    }
+
+    override fun toMainActivity() {
+        try {
+            val  intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
+        unregisterReceiver(connectionBroadcastReceiver)
+    }
+
+
+    override fun instantiatePresenter(): AuthorizationActivityPresenter {
+        return AuthorizationActivityPresenter(this)
     }
 }

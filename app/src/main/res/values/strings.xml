@@ -53,6 +53,7 @@
     <string name="error_code10">Неверный логин или пароль | Пользователь не найден</string>
     <string name="error_code11">Пользователь заблокирован</string>
 
+    <string name="facility_devices_count"></string>
 
 
 </resources>

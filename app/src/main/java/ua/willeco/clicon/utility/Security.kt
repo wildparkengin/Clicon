@@ -16,7 +16,8 @@ object Security {
         try {
             val cipher = Cipher.getInstance(CRYPT_METHOD)
             cipher.init(Cipher.ENCRYPT_MODE, getKey())
-            return Base64.encodeToString(cipher.doFinal(password.toByteArray(StandardCharsets.UTF_8)),
+            return Base64.encodeToString(
+                cipher.doFinal(password.toByteArray(StandardCharsets.UTF_8)),
                 Base64.DEFAULT)
         }catch (e:Exception){
             e.printStackTrace()

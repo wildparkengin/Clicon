@@ -6,6 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="ua.willeco.clicon.ui.AuthorizationActivity" android:background="@drawable/background">
+
     <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" app:srcCompat="@drawable/logo_clicon_rgb"
@@ -49,6 +50,7 @@
                 android:fontFamily="@font/play"
                 android:hint="@string/hint_email"
                 android:inputType="textNoSuggestions|text"
+                android:text="owner"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textColorHint="@color/hint_color"
@@ -64,6 +66,7 @@
                 android:fontFamily="@font/play"
                 android:hint="@string/hint_password"
                 android:inputType="textPassword"
+                android:text="owner"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textColorHighlight="@color/red_button"
@@ -84,7 +87,7 @@
             app:srcCompat="@drawable/fingerprint_dialog_fp_to_error" />
 
     <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/check_save_user_data"
             style="@style/Widget.AppCompat.CompoundButton.CheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -121,4 +124,5 @@
             android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" android:textColor="@android:color/white" android:cursorVisible="false"
             android:background="@drawable/bottom_line_text_view" android:fontFamily="@font/play"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

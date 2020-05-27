@@ -1,44 +1,47 @@
 package ua.willeco.clicon.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.FrameLayout
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.app_bar_main.*
 import ua.willeco.clicon.R
-import ua.willeco.clicon.adapters.AddWidgetAdapter
-import ua.willeco.clicon.model.widgets.EnableWidget
-import ua.willeco.clicon.utility.ViewsElementsUtill
+import ua.willeco.clicon.databinding.ActivityMainBinding
+import ua.willeco.clicon.mvp.contract.MainActivityContract
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity :AppCompatActivity(), MainActivityContract.View, NavigationView.OnNavigationItemSelectedListener {
 
+    lateinit var binding:ActivityMainBinding
     private var doubleBackPressed:Boolean = false
     private val mBottomSheetBehavior: BottomSheetBehavior<View?>? = null
-    private val isTransactionSafe:Boolean = false
-    private val isTransactionPending:Boolean = false
+    private lateinit var fragmentTramsactor:FragmentTransaction
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+        initView()
+    }
+
+    override fun initView() {
 
         setSupportActionBar(toolbar)
-
-        val drawerLayout:DrawerLayout = findViewById(R.id.drawer_layout)
-        val navView: NavigationView = findViewById(R.id.nav_view)
+        val drawerLayout:DrawerLayout = binding.drawerLayout//findViewById(R.id.drawer_layout)
+        val navView: NavigationView = binding.navView//findViewById(R.id.nav_view)
         val toggle = ActionBarDrawerToggle(
             this, drawerLayout, toolbar,
             R.string.navigation_drawer_open,
@@ -48,7 +51,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         navView.setNavigationItemSelectedListener(this)
-        initLeftWidgetPanel()
+
+        changeViewFragment(FacilitiesFragment.newInstance())
+    }
+
+    override fun changeViewFragment(fragment: Fragment) {
+        fragmentTramsactor = supportFragmentManager.beginTransaction()
+        fragmentTramsactor.replace(R.id.frame_container,fragment)
+
+        fragmentTramsactor.addToBackStack(null)
+        fragmentTramsactor.commit()
+    }
+
+    override fun getContext(): Context {
+        return  this
     }
 
     override fun onBackPressed() {
@@ -124,34 +140,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    private fun initLeftWidgetPanel(){
-        val imgClosePanel = findViewById<ImageView>(R.id.img_close_left_panel)
-        val rcv:RecyclerView = findViewById(R.id.rcv_add_widget)
-
-        imgClosePanel.setOnClickListener {
-            showHideSelectWidgetPanel()
-        }
-
-        val listWidget = ArrayList<EnableWidget>()
-
-        listWidget.add(EnableWidget("Котел","boiler"))
-        listWidget.add(EnableWidget("КлиКон","clicon"))
-        listWidget.add(EnableWidget("Статистика","statistic"))
-        listWidget.add(EnableWidget("Сообщения","clicon"))
-        listWidget.add(EnableWidget("Погода","statistic"))
-
-        rcv.layoutManager = LinearLayoutManager(this) as RecyclerView.LayoutManager?
-        rcv.adapter = AddWidgetAdapter(this,listWidget)
-    }
-
-    private fun showHideSelectWidgetPanel(){
-        val frameSelectWidget = findViewById<FrameLayout>(R.id.frame_widget_select)
-        ViewsElementsUtill.setAnimationToView(frameSelectWidget)
-    }
-
-    override fun onStop() {
-        //SystemUtility.exitFromApp(this)
-        super.onStop()
-    }
 
 }

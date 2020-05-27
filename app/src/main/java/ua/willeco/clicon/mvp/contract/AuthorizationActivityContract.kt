@@ -1,15 +1,16 @@
 package ua.willeco.clicon.mvp.contract
 
-import ua.willeco.clicon.model.RequestsModels.AuthentificateResponse
-import ua.willeco.clicon.model.User
-import ua.willeco.clicon.mvp.presenter.BasePresenter
+import ua.willeco.clicon.model.RequestsModels.GetAuthentificateResponse
+import ua.willeco.clicon.mvp.repository.BaseResponseRepositoryInterface
+import ua.willeco.clicon.mvp.view.BaseView
 
-interface AuthContract {
-    interface View {
+interface AuthorizationActivityContract {
+
+    interface View:BaseView{
         /**
          * Method to prevent action after login auth success
          */
-        fun onClickSaveLoginData()
+        fun initView()
         /**
          * Method to show load animation until get response
          */
@@ -33,9 +34,25 @@ interface AuthContract {
          */
         fun setErrorMessageToPasswordEditText()
 
+        /**
+         * Method to prevent action after login auth success
+         */
+        fun toMainActivity()
+        /**
+         * Method to prevent action after login auth success
+         */
+        fun onClickButtonAuth()
+        /**
+         * Method to prevent action after login auth success
+         */
+        fun getStateCheckBox():Boolean
     }
 
-    interface Presenter: BasePresenter<View>{
+    interface Presenter{
+        /**
+         * Method to validate entered data from user
+         */
+        fun saveUserCredential()
         /**
          * Method to validate entered data from user
          */
@@ -43,26 +60,13 @@ interface AuthContract {
         /**
          * Method to prevent action after login auth success
          */
-        fun getResponseAuth(login: String, password: String)
-        /**
-         * Method to prevent action after login auth success
-         */
-        fun validateAuth(data:AuthentificateResponse)
-
-        /**
-         * Method to prevent action after login auth success
-         */
-        fun toMainActivity()
+        fun validateAuth(data:GetAuthentificateResponse)
     }
 
-    interface Model{
-        /**
-         * Method to prevent action after login auth success
-         */
-        fun onSaveAuthData(user:User)
-        /**
-         * Method to prevent action after login auth success
-         */
-        fun getSavedLoginData():User
+    interface Repository:BaseResponseRepositoryInterface.OnFinishedRequest{
+//        /**
+//         * Method to prevent action after login auth success
+//         */
+//        fun getResponseAuth(onFinishedListener:BaseResponseRepositoryInterface.OnFinishedRequest, credential:String)
     }
 }
