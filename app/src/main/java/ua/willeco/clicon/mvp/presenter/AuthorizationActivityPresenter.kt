@@ -2,10 +2,12 @@ package ua.willeco.clicon.mvp.presenter
 
 import android.content.SharedPreferences
 import io.reactivex.disposables.Disposable
+import retrofit2.Retrofit
 import ua.willeco.clicon.http.ApiRequests
-import ua.willeco.clicon.model.RequestsModels.GetAuthentificateResponse
+import ua.willeco.clicon.model.RequestsModels.GetAuthentificateSimpleResponse
 import ua.willeco.clicon.mvp.contract.AuthorizationActivityContract
 import ua.willeco.clicon.mvp.repository.AutorizationRepository
+import ua.willeco.clicon.singletons.CurrentUserSingleton
 import ua.willeco.clicon.utility.Constants
 import ua.willeco.clicon.utility.Security
 import ua.willeco.clicon.utility.Validation
@@ -15,6 +17,8 @@ class AuthorizationActivityPresenter(authorizationActivityView:AuthorizationActi
 
     @Inject
     lateinit var api: ApiRequests
+    @Inject
+    lateinit var client: Retrofit
     @Inject
     lateinit var sharedPreferences: SharedPreferences
     lateinit var authRepository: AutorizationRepository
@@ -62,11 +66,12 @@ class AuthorizationActivityPresenter(authorizationActivityView:AuthorizationActi
         authRepository.getResponseAuth(this,passCrypt)
     }
 
-    override fun validateAuth(data: GetAuthentificateResponse) {
+    override fun validateAuth(data: GetAuthentificateSimpleResponse) {
         when(data.access){
             true ->{
                 view.toMainActivity()
                 saveUserCredential()
+                data.user_id?.let { CurrentUserSingleton.init(it) }
             }
             false ->{
                 view.showToast(data.message)
@@ -82,16 +87,16 @@ class AuthorizationActivityPresenter(authorizationActivityView:AuthorizationActi
         }
     }
 
-    override fun onFinishedRequest(response: Any) {
-        if (response is GetAuthentificateResponse){
-            validateAuth(response)
+    override fun onFinishedRequest(responseData: Any) {
+        if (responseData is GetAuthentificateSimpleResponse){
+            validateAuth(responseData)
         }
         view.closeLoader()
     }
 
-    override fun onFailureRequest(t: Throwable?) {
+    override fun onFailureRequest(t: String) {
         view.closeLoader()
-        view.showToast(t?.localizedMessage)
+        view.showToast(t)
     }
 
     override fun onViewDestroyed() {

@@ -1,8 +1,11 @@
 package ua.willeco.clicon.mvp.presenter
 
 import ua.willeco.clicon.http.ApiRequests
+import ua.willeco.clicon.model.RequestsModels.GetDevicesListResponse
 import ua.willeco.clicon.model.RequestsModels.GetFacilitiesListResponse
 import ua.willeco.clicon.mvp.contract.FacilitiesContract
+import ua.willeco.clicon.mvp.repository.BaseResponseRepositoryInterface
+import ua.willeco.clicon.mvp.repository.DevicesRepository
 import ua.willeco.clicon.mvp.repository.FacilityRepository
 import javax.inject.Inject
 
@@ -11,20 +14,25 @@ class FacilitiesPresenter(facilityView:FacilitiesContract.View):FacilitiesContra
 
     @Inject
     lateinit var api: ApiRequests
-    lateinit var facilityRepository: FacilityRepository
+    private lateinit var facilityRepository: FacilityRepository
+    private lateinit var deviceRepository: DevicesRepository
 
-    override fun onFinishedRequest(response: Any) {
-        if (response is GetFacilitiesListResponse){
-            validateFacilityResponse(response)
-        }else{
-            view.showError("Some error")
+    override fun onFinishedRequest(responseData: Any) {
+        when(responseData){
+            is GetFacilitiesListResponse ->{
+                validateFacilityResponse(responseData)}
+            is GetDevicesListResponse ->{
+                validateDevicesResponse(responseData)}
+            else ->{
+                view.showError("Some error")
+            }
         }
         view.closeLoader()
     }
 
-    override fun onFailureRequest(t: Throwable?) {
+    override fun onFailureRequest(t: String) {
         view.closeLoader()
-        t?.message?.let { view.showError(it) }
+        view.showError(t)
     }
 
     override fun getFacilityResponse() {
@@ -36,10 +44,26 @@ class FacilitiesPresenter(facilityView:FacilitiesContract.View):FacilitiesContra
     override fun validateFacilityResponse(response: GetFacilitiesListResponse) {
         when(response.access){
             false ->{
-                view.showError(response.message)
+                response.message?.let { view.showError(it) }
             }
             true ->{
                 view.loadFacilitiesRecycler(response)
+            }
+        }
+    }
+
+    override fun getDevicesResponse() {
+        deviceRepository= DevicesRepository(api)
+        deviceRepository.getListDeviceResponse(this,"wl-aea4a0ce3833")
+    }
+
+    override fun validateDevicesResponse(response: GetDevicesListResponse) {
+        when(response.access){
+            false ->{
+                response.message?.let { view.showError(it) }
+            }
+            true ->{
+                view.loadDevicesRecycler(response)
             }
         }
     }

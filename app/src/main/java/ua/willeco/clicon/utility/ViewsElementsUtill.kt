@@ -2,8 +2,10 @@ package ua.willeco.clicon.utility
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.content.Context
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 
 object ViewsElementsUtill {
@@ -52,5 +54,13 @@ object ViewsElementsUtill {
                     }
                 })
         }
+    }
+
+    fun showShortToastMessage(context: Context?, message:String){
+        Toast.makeText(context,message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun showLongToastMessage(context: Context?, message:String){
+        Toast.makeText(context,message, Toast.LENGTH_SHORT).show()
     }
 }

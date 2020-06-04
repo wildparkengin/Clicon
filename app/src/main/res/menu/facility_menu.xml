@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+            android:id="@+id/menu_item_action_crate"
+            android:icon="@android:drawable/ic_menu_add"
+            android:title="@string/promt_popup_create_device"
+            app:showAsAction="ifRoom|withText">
+        <menu>
+            <item
+                    android:id="@+id/action_add_room"
+                    android:icon="@drawable/ic_room"
+                    android:title="@string/promt_popup_create_room" />
+            <item
+                    android:id="@+id/action_add_device"
+                    android:icon="@drawable/ic_local_mode_connection"
+                    android:title="@string/promt_popup_create_device" />
+        </menu>
+    </item>
+
+</menu>

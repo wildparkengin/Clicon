@@ -18,6 +18,6 @@ class User :Serializable{
     private val address = ""
     private val lastLogIn: Date? = null
     private val enabled = true
-    private val groupList = mutableListOf<Group>()
-    private val deviceContainer = DeviceContainer()
+//    private val groupList = mutableListOf<Group>()
+//    private val deviceContainer = DeviceContainer()
 }

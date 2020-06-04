@@ -13,17 +13,16 @@ class FacilitiesAdapter(private val context: Context, private var faciliList: Ar
     class FacilitiesViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
         RecyclerView.ViewHolder(inflater.inflate(R.layout.item_facility, parent, false)) {
         private var mTitleFacility: TextView? = null
-        private var mYearView: TextView? = null
-
+        private var mDevicesCount: TextView? = null
 
         init {
             mTitleFacility = itemView.findViewById(R.id.txt_facility_name)
-            mYearView = itemView.findViewById(R.id.txt_facility_count_devices)
+            mDevicesCount = itemView.findViewById(R.id.txt_facility_count_devices)
         }
 
         fun bind(facility: Facility) {
             mTitleFacility?.text = facility.name
-            mYearView?.text = facility.devices_count.toString()
+            mDevicesCount?.text = facility.devices_count.toString()
         }
 
     }

@@ -5,7 +5,7 @@ import ua.willeco.clicon.model.Facility
 import java.io.Serializable
 
 class GetFacilitiesListResponse : Serializable {
-    val access:Boolean = false
-    val message:String = ""
+    val access: Boolean? = null
+    val message: String? = null
     val facilityList: ArrayList<Facility>? = null
 }

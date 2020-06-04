@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimary">#3B4B5B</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="transparent">#80000000</color>
+    <color name="transparent">#00000000</color>
     <color name="main_background">#252930</color>
+    <color name="pure_white">#ffffff</color>
 
     <color name="red_button">#D8324D</color>
     <color name="edit_text">#D0CFD0</color>
@@ -14,4 +15,5 @@
     <color name="background_status_bar">#16191D</color>
     <color name="help_activity_background_text">#262B33</color>
     <color name="help_activity_background_">#3B4B5B</color>
+
 </resources>

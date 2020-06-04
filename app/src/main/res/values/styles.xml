@@ -1,22 +1,21 @@
 <resources>
-
     <!-- Base application theme. -->
-    <style name="MainAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+    <style name="MainAppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Theme.AppCompat.Light.NoActionBar Customize your theme here. -->
+        <item name="android:windowBackground">@color/main_background</item>
         <item name="colorPrimary">@color/transparent</item>
         <item name="colorControlNormal">@android:color/white</item>
-        <item name="colorPrimaryDark">@color/transparent</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
         <item name="checkboxStyle">@style/MyCheckBoxStyle</item>
+        <item name="android:dialogTheme">@style/CustomDialog</item>
+        <item name="android:buttonStyle">@style/CustomButtonStyle</item>
     </style>
 
-    <style name="NavigationStyle" parent="Widget.Design.NavigationView">
-        <item name="android:textColorPrimary">@android:color/white</item>
-        <item name="android:textColorSecondary">@android:color/white</item>
-        <item name="android:background">@color/background_status_bar</item>
-        <item name="android:listDivider">@color/background_status_bar</item>
+    <style name="CustomBottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
+        <item name="itemIconTint">@color/pure_white</item>
+        <item name="itemTextColor">@color/pure_white</item>
+        <item name="elevation">0dp</item>
     </style>
 
     <style name="MyEditText" parent="Theme.AppCompat.Light">
@@ -32,12 +31,11 @@
         <item name="colorControlNormal">#8AFFFFFF</item>
         <item name="colorControlActivated">@color/colorAccent</item>
     </style>
-    <style name="MainAppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
+
+    <!-- Кастомная AppTheme.Launcher. Устанавливает в качестве фона вашу drawable
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    -->
     <style name="UnelevatedButton" parent="Widget.MaterialComponents.Button.UnelevatedButton">
     </style>
 
@@ -49,10 +47,70 @@
         <!-- <item name="colorPrimaryDark">@android:color/white</item> -->
     </style>
 
-    <style name="AppTheme.SplashTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="AppTheme.SplashTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowBackground">@color/main_background</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowDisablePreview">true</item>
+        <item name="android:dialogTheme">@style/SplashDialogTheme</item>
+    </style>
+
+    <!-- set the rounded drawable as background to your bottom sheet -->
+    <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_bottom_sheet_dialog_fragment</item>
+    </style>
+
+    <style name="BaseBottomSheetDialog" parent="@style/Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+    </style>
+
+    <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog" />
+
+    <!-- Popup Style -->
+    <style name="MyPopupStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Used for the buttons -->
+        <item name="colorAccent">@color/colorAccent</item>
+        <!-- Used for the title and text -->
+        <item name="android:textColorPrimary">@android:color/black</item>
+        <!-- Used for the background -->
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+    <style name="CustomPopup" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:colorBackground">@color/main_background</item>
+        <item name="android:textColor">@color/pure_white</item>
+    </style>
+
+    <style name="SplashDialogTheme" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowBackground">@color/main_background</item>
+        <item name="android:textColor">@color/pure_white</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowMinWidthMajor">@android:dimen/dialog_min_width_major</item>
+        <item name="android:windowMinWidthMinor">@android:dimen/dialog_min_width_minor</item>
+    </style>
+
+    <style name="CustomDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="android:windowBackground">@color/main_background</item>
+        <item name="android:textColor">@color/pure_white</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+    </style>
+
+    <style name="CustomButtonStyle" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/biometric_error_color</item>
+        <item name="android:textColor">@color/biometric_error_color</item>
+    </style>
+
+    <style name="CustomTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeColor">@color/text_input_box_stroke</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="android:textColorHint">@color/red_button</item>
+        <item name="hintTextColor">@color/red_button</item>
     </style>
 
 </resources>

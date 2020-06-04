@@ -1,14 +1,20 @@
 package ua.willeco.clicon.mvp.contract
 
-import androidx.annotation.StringRes
-import ua.willeco.clicon.model.RequestsModels.GetAuthentificateResponse
+import ua.willeco.clicon.model.RequestsModels.GetDevicesListResponse
 import ua.willeco.clicon.model.RequestsModels.GetFacilitiesListResponse
+import ua.willeco.clicon.mvp.presenter.FacilitiesPresenter
 import ua.willeco.clicon.mvp.repository.BaseResponseRepositoryInterface
 import ua.willeco.clicon.mvp.view.BaseView
+import ua.willeco.clicon.mvp.view.MenuClickListenerInterface
 
 interface FacilitiesContract {
 
-    interface View: BaseView {
+    interface View:BaseView,MenuClickListenerInterface{
+
+        /**
+         * Method to prevent action after login auth success
+         */
+        fun instantiatePresenter(): FacilitiesPresenter
         /**
          * Method to prevent action after login auth success
          */
@@ -18,18 +24,6 @@ interface FacilitiesContract {
          * @param error the error to display in the view
          */
         fun showError(error: String)
-
-        /**
-         * Displays an error in the view
-         * @param errorResId the resource id of the error to display in the view
-         */
-        fun showError(@StringRes errorResId: Int){
-            this.showError(getContext().getString(errorResId))
-        }
-        /**
-         * Method to prevent action after login auth success
-         */
-        fun showDialogToAddFacility()
         /**
          * Method to show load animation until get response
          */
@@ -42,7 +36,22 @@ interface FacilitiesContract {
         /**
          * Method to close animation after get response
          */
-        fun loadFacilitiesRecycler(facilitiesDataResponse:GetFacilitiesListResponse)
+        fun loadFacilitiesRecycler(facilityData: GetFacilitiesListResponse)
+
+        /**
+         * Method to close animation after get response
+         */
+        fun loadDevicesRecycler(devicesDataResponse: GetDevicesListResponse)
+
+        /**
+         * Method to close animation after get response
+         */
+        fun showPopup()
+        /**
+         * Method to close animation after get response
+         */
+        fun initPopupView()
+
     }
 
     interface Presenter{
@@ -53,7 +62,15 @@ interface FacilitiesContract {
         /**
          * Method to prevent action after login auth success
          */
-        fun validateFacilityResponse(response:GetFacilitiesListResponse)
+        fun validateFacilityResponse(response: GetFacilitiesListResponse)
+        /**
+         * Method to prevent action after login auth success
+         */
+        fun getDevicesResponse()
+        /**
+         * Method to prevent action after login auth success
+         */
+        fun validateDevicesResponse(response: GetDevicesListResponse)
     }
 
     interface Repository: BaseResponseRepositoryInterface.OnFinishedRequest{

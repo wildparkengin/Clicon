@@ -18,6 +18,7 @@
             android:theme="@style/MainAppTheme"
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning">
+
         <activity android:name=".ui.SplashActivity"
                 android:theme="@style/AppTheme.SplashTheme">
             <intent-filter>
@@ -28,7 +29,8 @@
         <activity
                 android:name=".ui.AuthorizationActivity"
                 android:screenOrientation="portrait"
-                android:theme="@style/MainAppTheme">
+                android:theme="@style/AppTheme.SplashTheme"
+                >
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
 
@@ -39,7 +41,7 @@
                 android:name=".ui.MainActivity"
                 android:label=""
                 android:screenOrientation="portrait"
-                android:theme="@style/MainAppTheme">
+                android:windowSoftInputMode="adjustPan">
         </activity>
 
         <meta-data

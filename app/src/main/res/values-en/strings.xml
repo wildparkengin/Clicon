@@ -10,6 +10,23 @@
     <string name="double_back_pressed">Please click BACK again to exit</string>
     <string name="promt_fail_to_connect">Failure connect to server</string>
 
+    <string name="promt_menu_home">Home</string>
+    <string name="promt_menu_statistic">Statistic</string>
+    <string name="promt_menu_settings">Settings</string>
+    <string name="promt_menu_user">User</string>
+
+    <string name="promt_popup_create_room">Facility</string>
+    <string name="promt_popup_create_device">Device</string>
+
+    <string name="boiler_output_temp">Output</string>
+    <string name="boiler_input_temp">Input</string>
+    <string name="boiler_fuel_screw_temp">Screw</string>
+    <string name="boiler_pwm">Pwm</string>
+    <string name="boiler_burner_temp">Burner</string>
+    <string name="boiler_heat_water_temp">H. water</string>
+
+    <string name="promt_button_cancel">Cancel</string>
+
     <string name="greetings">Добро пожаловать!\nВас приветствует помошник настройки CliCon.</string>
     <string name="clicon_info">
         CliCon - это программное обеспечение,позволяющие следить и управлять климатической составляющей помещений
@@ -20,7 +37,7 @@
     </string>
 
     <string name="promt_auth_fingerprint">Authenticate to Clicon 5</string>
-    <string name="promt_cancel">Отмена</string>
+
     <string name="you_can_close">*Это окно вы можете вызвать в меню -> “ПОМОЩЬ”</string>
     <string name="title_activity_main">Main2Activity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -31,7 +48,7 @@
     <string name="action_settings">Settings</string>
     <string name="promt_add_widgets">Добавить виджет</string>
     <string name="menu_category">Дополнительно</string>
-    <string name="menu_devices">Устройства</string>
+    <string name="menu_devices">Devices</string>
     <string name="menu_widgets">Виджеты</string>
     <string name="menu_groups">Группы</string>
     <string name="menu_call">Связь</string>
@@ -53,4 +70,7 @@
     <string name="error_code_unexpected">Unexpected error</string>
     <string name="error_code10">Invalid login or password | User not found</string>
     <string name="error_code11">User banned</string>
+    <string name="hint_create_facility">Facility name</string>
+    <string name="title_dialog_create_facility">Create Facility</string>
+    <string name="title_dialog_create_device">Add device</string>
 </resources>

@@ -17,6 +17,6 @@ abstract class BaseFragment<P : BasePresenter<BaseView>> : BaseView, Fragment(){
     }
 
     override fun getContext(): Context {
-        return this.requireContext()
+        return context
     }
 }

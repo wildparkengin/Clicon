@@ -1,35 +1,44 @@
 package ua.willeco.clicon.mvp.repository
 
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import ua.willeco.clicon.http.ApiRequests
-import ua.willeco.clicon.singletons.CurrentUserSingleton
+import ua.willeco.clicon.model.RequestsModels.GetAuthentificateSimpleResponse
 
-class AutorizationRepository constructor(private val api:ApiRequests):BaseResponseRepositoryInterface{
-
-    private var subscription: Disposable? = null
+class AutorizationRepository constructor(private val api: ApiRequests):BaseResponseRepositoryInterface{
 
     fun getResponseAuth(onFinishedListener: BaseResponseRepositoryInterface.OnFinishedRequest, credential:String) {
-        subscription = api.getAuthentication(credential)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .doOnTerminate {
-                onFinishedListener.onFailureRequest(null)}
-            .subscribe(
-                { responseData ->
-                    onFinishedListener.onFinishedRequest(responseData)
-                    responseData.user_id?.let { saveUserID(it) }
-                    subscription?.dispose()
-                },
-                {
-                    onFinishedListener.onFailureRequest(it)
-                    subscription?.dispose()
-                }
-            )
-    }
+        val call = api.getAuthentication(credential)
+        call.enqueue(object : Callback<GetAuthentificateSimpleResponse> {
+            override fun onFailure(call: Call<GetAuthentificateSimpleResponse>, t: Throwable) {
+                onFinishedListener.onFailureRequest(t.message.toString())
+            }
 
-    private fun saveUserID(id:Long){
-        CurrentUserSingleton.init(id)
+            override fun onResponse(call: Call<GetAuthentificateSimpleResponse>, response: Response<GetAuthentificateSimpleResponse>) {
+                if (response.code() == 200){
+                    response.body()?.let { onFinishedListener.onFinishedRequest(it) }
+                }else{
+                    onFinishedListener.onFailureRequest(response.message())
+                }
+            }
+        })
+//
+//        subscription = api.getAuthentication(credential)
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribeOn(Schedulers.io())
+//            .doOnTerminate {
+//                onFinishedListener.onFailureRequest(null)}
+//            .subscribe(
+//                { responseData ->
+//                    onFinishedListener.onFinishedRequest(responseData)
+//                    responseData.user_id?.let { saveUserID(it) }
+//                    subscription?.dispose()
+//                },
+//                {
+//                    onFinishedListener.onFailureRequest(it)
+//                    subscription?.dispose()
+//                }
+//            )
     }
 }
