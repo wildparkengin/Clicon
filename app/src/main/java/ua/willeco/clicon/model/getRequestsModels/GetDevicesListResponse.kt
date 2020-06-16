@@ -1,4 +1,4 @@
-package ua.willeco.clicon.model.RequestsModels
+package ua.willeco.clicon.model.getRequestsModels
 
 import ua.willeco.clicon.model.Boiler100
 import ua.willeco.clicon.model.Boiler500

@@ -1,10 +1,9 @@
-package ua.willeco.clicon.model.RequestsModels
+package ua.willeco.clicon.model.getRequestsModels
 
-import com.google.gson.annotations.SerializedName
 import ua.willeco.clicon.model.Facility
 import java.io.Serializable
 
-class GetFacilitiesListResponse : Serializable {
+class GetRoomListResponse : Serializable {
     val access: Boolean? = null
     val message: String? = null
     val facilityList: ArrayList<Facility>? = null

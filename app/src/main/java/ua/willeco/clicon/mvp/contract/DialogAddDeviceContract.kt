@@ -1,8 +1,6 @@
 package ua.willeco.clicon.mvp.contract
 
-import ua.willeco.clicon.model.RequestsModels.GetDevicesListResponse
-import ua.willeco.clicon.model.RequestsModels.GetFacilitiesListResponse
-import ua.willeco.clicon.model.RequestsModels.SimpleResponse
+import ua.willeco.clicon.model.getRequestsModels.SimpleResponse
 import ua.willeco.clicon.mvp.repository.BaseResponseRepositoryInterface
 
 interface DialogAddDeviceContract {

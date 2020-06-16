@@ -75,8 +75,7 @@ class AuthorizationActivity : BaseActivity<AuthorizationActivityPresenter>(),
 //            BiometricalAuth.initBiometrical(this)
 //        }
 
-        connectionBroadcastReceiver =
-            ReceiverConnectionChanged()
+        connectionBroadcastReceiver = ReceiverConnectionChanged()
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             if (Validation.isLocationPermissionAccess(this)){

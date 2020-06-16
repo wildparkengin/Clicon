@@ -4,17 +4,17 @@
     <item
             android:id="@+id/menu_item_action_crate"
             android:icon="@android:drawable/ic_menu_add"
-            android:title="@string/promt_popup_create_device"
+            android:title="@string/promt_popup_menu_delete"
             app:showAsAction="ifRoom|withText">
         <menu>
             <item
-                    android:id="@+id/action_add_room"
+                    android:id="@+id/action_add_facility"
                     android:icon="@drawable/ic_room"
-                    android:title="@string/promt_popup_create_room" />
+                    android:title="@string/promt_popup_menu_add_facility" />
             <item
                     android:id="@+id/action_add_device"
                     android:icon="@drawable/ic_local_mode_connection"
-                    android:title="@string/promt_popup_create_device" />
+                    android:title="@string/promt_popup_menu_add_device" />
         </menu>
     </item>
 

@@ -3,6 +3,8 @@ package ua.willeco.clicon.utility
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
@@ -63,4 +65,5 @@ object ViewsElementsUtill {
     fun showLongToastMessage(context: Context?, message:String){
         Toast.makeText(context,message, Toast.LENGTH_SHORT).show()
     }
+
 }

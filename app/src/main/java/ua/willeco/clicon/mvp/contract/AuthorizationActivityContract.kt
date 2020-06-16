@@ -1,6 +1,6 @@
 package ua.willeco.clicon.mvp.contract
 
-import ua.willeco.clicon.model.RequestsModels.GetAuthentificateSimpleResponse
+import ua.willeco.clicon.model.getRequestsModels.GetAuthentificateSimpleResponse
 import ua.willeco.clicon.mvp.repository.BaseResponseRepositoryInterface
 import ua.willeco.clicon.mvp.view.BaseView
 

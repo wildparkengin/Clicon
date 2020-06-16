@@ -9,7 +9,7 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="checkboxStyle">@style/MyCheckBoxStyle</item>
         <item name="android:dialogTheme">@style/CustomDialog</item>
-        <item name="android:buttonStyle">@style/CustomButtonStyle</item>
+        <item name="android:windowContentTransitions">true</item>
     </style>
 
     <style name="CustomBottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
@@ -69,16 +69,6 @@
 
     <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog" />
 
-    <!-- Popup Style -->
-    <style name="MyPopupStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <!-- Used for the buttons -->
-        <item name="colorAccent">@color/colorAccent</item>
-        <!-- Used for the title and text -->
-        <item name="android:textColorPrimary">@android:color/black</item>
-        <!-- Used for the background -->
-        <item name="android:background">@android:color/white</item>
-    </style>
-
     <style name="CustomPopup" parent="Theme.AppCompat.NoActionBar">
         <item name="android:colorBackground">@color/main_background</item>
         <item name="android:textColor">@color/pure_white</item>
@@ -99,11 +89,12 @@
         <item name="android:textColor">@color/pure_white</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="materialThemeOverlay">@style/CustomButtonStyle</item>
     </style>
 
-    <style name="CustomButtonStyle" parent="Widget.AppCompat.Button.Colored">
-        <item name="colorButtonNormal">@color/biometric_error_color</item>
-        <item name="android:textColor">@color/biometric_error_color</item>
+    <style name="CustomButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:textColor">@color/pure_white</item>
     </style>
 
     <style name="CustomTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
@@ -111,6 +102,11 @@
         <item name="boxStrokeWidth">1dp</item>
         <item name="android:textColorHint">@color/red_button</item>
         <item name="hintTextColor">@color/red_button</item>
+        <item name="android:textColor">@color/pure_white</item>
+    </style>
+
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@color/pure_white</item>
     </style>
 
 </resources>

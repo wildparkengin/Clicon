@@ -3,8 +3,9 @@ package ua.willeco.clicon.mvp.presenter
 import android.content.SharedPreferences
 import io.reactivex.disposables.Disposable
 import retrofit2.Retrofit
+import ua.willeco.clicon.enums.AppRequestEventType
 import ua.willeco.clicon.http.ApiRequests
-import ua.willeco.clicon.model.RequestsModels.GetAuthentificateSimpleResponse
+import ua.willeco.clicon.model.getRequestsModels.GetAuthentificateSimpleResponse
 import ua.willeco.clicon.mvp.contract.AuthorizationActivityContract
 import ua.willeco.clicon.mvp.repository.AutorizationRepository
 import ua.willeco.clicon.singletons.CurrentUserSingleton
@@ -87,7 +88,7 @@ class AuthorizationActivityPresenter(authorizationActivityView:AuthorizationActi
         }
     }
 
-    override fun onFinishedRequest(responseData: Any) {
+    override fun onFinishedRequest(responseData: Any,requestEventType: AppRequestEventType) {
         if (responseData is GetAuthentificateSimpleResponse){
             validateAuth(responseData)
         }

@@ -2,15 +2,11 @@ package ua.willeco.clicon.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.navigation.NavigationView
 import ua.willeco.clicon.R
 import ua.willeco.clicon.databinding.ActivityMainBinding
-import ua.willeco.clicon.factory.CustomFragmentFactory
+import ua.willeco.clicon.factory.SelectedFragmentFactory
 import ua.willeco.clicon.mvp.view.MainActivityView
 
 
@@ -19,7 +15,7 @@ class MainActivity :AppCompatActivity(), MainActivityView{
     private lateinit var binding:ActivityMainBinding
     private lateinit var view: View
     private var doubleBackPressed:Boolean = false
-    private val customFragmentFactory = CustomFragmentFactory()
+    private val customFragmentFactory = SelectedFragmentFactory()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +50,7 @@ class MainActivity :AppCompatActivity(), MainActivityView{
         binding.bottomNavigation.setOnNavigationItemSelectedListener {
             val tempNameFragment = when(it.itemId){
                 R.id.app_menu_home ->{
-                    FacilitiesFragment::class.java.name
+                    HomeFragment::class.java.name
                 }
                 else -> ""
             }

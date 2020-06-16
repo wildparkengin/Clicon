@@ -45,7 +45,7 @@ abstract class BasePresenter<out V: BaseView>(protected val view:V) {
             is AuthorizationActivityPresenter ->{
                 injector.inject(this)
             }
-            is FacilitiesPresenter ->{
+            is HomeFragmentPresenter ->{
                 injector.inject(this)
             }
         }

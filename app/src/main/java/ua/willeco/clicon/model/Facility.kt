@@ -4,6 +4,6 @@ import java.io.Serializable
 
 class Facility:Serializable {
     val mac:String? = ""
-    val name:String? = ""
+    var name:String? = ""
     val devices_count:Int? = 0
 }

@@ -1,6 +1,8 @@
 package ua.willeco.clicon.model
 
-class Clicon:Device(){
+import java.io.Serializable
+
+class Clicon:Device(),Serializable{
     private val indoorTemp:Int? = 0 // текущая температура внутри помещения
     private val humidity:Int? = 0 // текущая влажность внутри помещения
     private val co2Level:Int? = 0 // текущий уровень CO2

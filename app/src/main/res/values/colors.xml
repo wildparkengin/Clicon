@@ -16,4 +16,7 @@
     <color name="help_activity_background_text">#262B33</color>
     <color name="help_activity_background_">#3B4B5B</color>
 
+    <color name="edt_EndIcon_un_active_color">#E61919</color>
+    <color name="edt_EndIcon_active_color">#80E619</color>
+
 </resources>

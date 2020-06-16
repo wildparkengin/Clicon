@@ -14,10 +14,26 @@
     <string name="promt_menu_settings">Настройки</string>
     <string name="promt_menu_user">Пользователь</string>
 
-    <string name="promt_popup_create_room">Помещение</string>
-    <string name="promt_popup_create_device">Устройство</string>
+    <string name="promt_popup_menu_edit">Изменить</string>
+    <string name="promt_popup_menu_delete">Удалить</string>
 
-    <string name="promt_title_facility_recycler">Группы</string>
+    <string name="promt_popup_menu_add_facility">Добавить объект</string>
+    <string name="promt_popup_menu_add_device">Добавить устройство</string>
+
+    <string name="dialog_title_add_facility">Добавить объект</string>
+    <string name="dialog_title_update_facility">Изменить объект</string>
+    <string name="dialog_title_add_device">Добавить устройство</string>
+    <string name="dialog_title_update_device">Изменить устройство</string>
+
+    <string name="toast_message_add_device_success">Устройство добавленно</string>
+    <string name="toast_message_add_facility_success">Объект добавлен</string>
+    <string name="toast_message_update_facility_success">Объект обновлен</string>
+    <string name="toast_message_delete_success">Успешно удаленно</string>
+
+    <string name="alert_dialog_title_delete_device">Вы действительно хотите удалить устройство?</string>
+    <string name="alert_dialog_title_delete_facility">Вы действительно хотите удалить объект?</string>
+    <string name="alert_dialog_message_delete_facility">В случае удаления объекта, удаляются все закрепленные за ним устройства</string>
+    <string name="alert_dialog_message_delete_device">*Устройство можно будет добавить через соответствующее меню</string>
     
     <string name="boiler_output_temp">Подача</string>
     <string name="boiler_input_temp">Обратка</string>
@@ -27,6 +43,10 @@
     <string name="boiler_heat_water_temp">ГВС</string>
 
     <string name="promt_button_cancel">Отмена</string>
+    <string name="promt_button_add">Добавить</string>
+    <string name="promt_button_ok">Подтвердить</string>
+
+    <string name="promt_error_edittext_length_3">Минимум 3 символа</string>
 
     <string name="greetings">Добро пожаловать!\nВас приветствует помошник настройки CliCon.</string>
     <string name="clicon_info">
@@ -71,9 +91,12 @@
     <string name="error_code_unexpected">Неизвесная ошибка</string>
     <string name="error_code10">Неверный логин или пароль | Пользователь не найден</string>
     <string name="error_code11">Пользователь заблокирован</string>
-    <string name="hint_create_facility">Название объекта</string>
+    <string name="hint_create_room">Имя объекта</string>
+    <string name="hint_create_device">Имя устройства</string>
+    <string name="hint_chip_id_device">ChipID устройства</string>
     <string name="title_dialog_create_facility">Добавление Объекта</string>
     <string name="title_dialog_create_device">Добавление устройства</string>
 
+    <string name="error_empty_fields">Заполните все поля</string>
 
 </resources>

@@ -6,7 +6,7 @@ import ua.willeco.clicon.di.module.ApiServiceModule
 import ua.willeco.clicon.di.module.ContextModule
 import ua.willeco.clicon.di.module.SharedPreferencesModule
 import ua.willeco.clicon.mvp.presenter.AuthorizationActivityPresenter
-import ua.willeco.clicon.mvp.presenter.FacilitiesPresenter
+import ua.willeco.clicon.mvp.presenter.HomeFragmentPresenter
 import ua.willeco.clicon.mvp.presenter.SplashActivityPresenter
 import ua.willeco.clicon.mvp.view.BaseView
 import javax.inject.Singleton
@@ -20,7 +20,7 @@ interface PresenterInjector {
      */
     fun inject(splashActivityPresenter: SplashActivityPresenter)
     fun inject(authorizationActivityPresenter: AuthorizationActivityPresenter)
-    fun inject(facilityPresenter:FacilitiesPresenter)
+    fun inject(facilityPresenter:HomeFragmentPresenter)
 
     @Component.Builder
     interface Builder {

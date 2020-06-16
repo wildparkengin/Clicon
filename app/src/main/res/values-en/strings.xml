@@ -15,8 +15,26 @@
     <string name="promt_menu_settings">Settings</string>
     <string name="promt_menu_user">User</string>
 
-    <string name="promt_popup_create_room">Facility</string>
-    <string name="promt_popup_create_device">Device</string>
+    <string name="promt_popup_menu_edit">Change</string>
+    <string name="promt_popup_menu_delete">Delete</string>
+
+    <string name="promt_popup_menu_add_facility">Add facility</string>
+    <string name="promt_popup_menu_add_device">Add device</string>
+
+    <string name="dialog_title_add_facility">Add facility</string>
+    <string name="dialog_title_update_facility">Change facility</string>
+    <string name="dialog_title_add_device">Add device</string>
+    <string name="dialog_title_update_device">Change device</string>
+
+    <string name="toast_message_add_device_success">Device is added</string>
+    <string name="toast_message_add_facility_success">Facility is added</string>
+    <string name="toast_message_update_facility_success">Facility is updated</string>
+    <string name="toast_message_delete_success">Successful removal</string>
+
+    <string name="alert_dialog_title_delete_device">Confirm to delete this device? </string>
+    <string name="alert_dialog_title_delete_facility">Confirm to delete this facility?</string>
+    <string name="alert_dialog_message_delete_facility">Warning! If you delete this facility, all included devices will be deleted</string>
+    <string name="alert_dialog_message_delete_device">*Deleted device can be added via the *add new* menu</string>
 
     <string name="boiler_output_temp">Output</string>
     <string name="boiler_input_temp">Input</string>
@@ -26,6 +44,10 @@
     <string name="boiler_heat_water_temp">H. water</string>
 
     <string name="promt_button_cancel">Cancel</string>
+    <string name="promt_button_add">Add</string>
+    <string name="promt_button_ok">Confirm</string>
+
+    <string name="promt_error_edittext_length_3">Minimum 3 symbol</string>
 
     <string name="greetings">Добро пожаловать!\nВас приветствует помошник настройки CliCon.</string>
     <string name="clicon_info">
@@ -70,7 +92,11 @@
     <string name="error_code_unexpected">Unexpected error</string>
     <string name="error_code10">Invalid login or password | User not found</string>
     <string name="error_code11">User banned</string>
-    <string name="hint_create_facility">Facility name</string>
+    <string name="hint_create_room">Room name</string>
+    <string name="hint_create_device">Device name</string>
+    <string name="hint_chip_id_device">Device ChipID</string>
     <string name="title_dialog_create_facility">Create Facility</string>
     <string name="title_dialog_create_device">Add device</string>
+
+    <string name="error_empty_fields">Some field is empty</string>
 </resources>

@@ -29,4 +29,12 @@ object Constants {
      * Time to okHttpClient connect timeout in sec
      */
     const val PREFERENCES_LOGIN_HASH = "login_data"
+
+    /**
+     * Time to okHttpClient connect timeout in sec
+     */
+    const val RESULT_FROM_DIALOG = 0
+
+    const val DIALOG_ARGUMENTS_TITLE = "dialog_title"
+
 }

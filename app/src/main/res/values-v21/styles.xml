@@ -10,7 +10,7 @@
         <item name="android:windowTranslucentStatus">true</item>
         <item name="checkboxStyle">@style/MyCheckBoxStyle</item>
         <item name="android:dialogTheme">@style/CustomDialog</item>
-        <item name="android:buttonStyle">@style/CustomButtonStyle</item>
+        <item name="android:windowContentTransitions">true</item>
     </style>
 
     <style name="CustomBottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
@@ -53,11 +53,6 @@
         <item name="android:windowDisablePreview">true</item>
     </style>
 
-    <style name="BottomSheetDialogTheme" parent="Theme.MaterialComponents.BottomSheetDialog">
-       <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@color/pure_white</item>
-    </style>
-
     <!-- Popup style in action bar -->
     <style name="CustomPopup" parent="Theme.AppCompat.NoActionBar">
         <item name="android:colorBackground">@color/main_background</item>
@@ -79,17 +74,23 @@
         <item name="android:textColor">@color/pure_white</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="materialThemeOverlay">@style/CustomButtonStyle</item>
     </style>
 
     <style name="CustomButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:colorButtonNormal">@color/biometric_error_color</item>
-        <item name="android:textColor">@color/biometric_error_color</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="android:textColor">@color/pure_white</item>
     </style>
 
     <style name="CustomTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="boxStrokeColor">@color/text_input_box_stroke</item>
         <item name="boxStrokeWidth">1dp</item>
         <item name="android:textColorHint">@color/red_button</item>
+        <item name="android:textColor">@color/pure_white</item>
         <item name="hintTextColor">@color/red_button</item>
+    </style>
+
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@color/pure_white</item>
     </style>
 </resources>
