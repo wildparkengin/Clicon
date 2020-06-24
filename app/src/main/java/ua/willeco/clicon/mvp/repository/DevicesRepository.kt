@@ -5,8 +5,9 @@ import retrofit2.Callback
 import retrofit2.Response
 import ua.willeco.clicon.enums.AppRequestEventType
 import ua.willeco.clicon.http.ApiRequests
-import ua.willeco.clicon.model.getRequestsModels.DeviceCRUDResponce
 import ua.willeco.clicon.model.getRequestsModels.GetDevicesListResponse
+import ua.willeco.clicon.model.getRequestsModels.SimpleResponse
+import ua.willeco.clicon.model.setRequestModel.DeviceRequestModel
 import ua.willeco.clicon.singletons.CurrentUserSingleton
 
 class DevicesRepository constructor(private val api: ApiRequests):BaseResponseRepositoryInterface{
@@ -28,32 +29,33 @@ class DevicesRepository constructor(private val api: ApiRequests):BaseResponseRe
         })
     }
 
-    fun createDevice(onFinishedListener: BaseResponseRepositoryInterface.OnFinishedRequest,
-        device_cid:String, name:String){
-        val call = api.addDevice(CurrentUserSingleton.getUserID(),device_cid,name)
+    fun createDevice(onFinishedListener: BaseResponseRepositoryInterface.OnFinishedRequest, device:DeviceRequestModel?){
+        if (device!=null){
+            val call = api.addDevice(CurrentUserSingleton.getUserID(),device.owner_id,device.device_cid,device.name,device.type.stringName,device.mac)
 
-        call.enqueue(object : Callback<DeviceCRUDResponce> {
-            override fun onFailure(call: Call<DeviceCRUDResponce>, t: Throwable) {
-                onFinishedListener.onFailureRequest(t.message.toString())
-            }
-            override fun onResponse(call: Call<DeviceCRUDResponce>, responseRoom: Response<DeviceCRUDResponce>) {
-                if (responseRoom.code() == 200){
-                    responseRoom.body()?.let { onFinishedListener.onFinishedRequest(it,AppRequestEventType.ADD_DEVICE) }
-                }else{
-                    onFinishedListener.onFailureRequest(responseRoom.message())
+            call.enqueue(object : Callback<SimpleResponse> {
+                override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
+                    onFinishedListener.onFailureRequest(t.message.toString())
                 }
-            }
-        })
+                override fun onResponse(call: Call<SimpleResponse>, responseRoom: Response<SimpleResponse>) {
+                    if (responseRoom.code() == 200){
+                        responseRoom.body()?.let { onFinishedListener.onFinishedRequest(it,AppRequestEventType.ADD_DEVICE) }
+                    }else{
+                        onFinishedListener.onFailureRequest(responseRoom.message())
+                    }
+                }
+            })
+        }
     }
 
     fun deleteDevice(onFinishedListener: BaseResponseRepositoryInterface.OnFinishedRequest, device_cid:String){
         val call = api.removeDevice(CurrentUserSingleton.getUserID(),device_cid)
 
-        call.enqueue(object : Callback<DeviceCRUDResponce> {
-            override fun onFailure(call: Call<DeviceCRUDResponce>, t: Throwable) {
+        call.enqueue(object : Callback<SimpleResponse> {
+            override fun onFailure(call: Call<SimpleResponse>, t: Throwable) {
                 onFinishedListener.onFailureRequest(t.message.toString())
             }
-            override fun onResponse(call: Call<DeviceCRUDResponce>, responseRoom: Response<DeviceCRUDResponce>) {
+            override fun onResponse(call: Call<SimpleResponse>, responseRoom: Response<SimpleResponse>) {
                 if (responseRoom.code() == 200){
                     responseRoom.body()?.let { onFinishedListener.onFinishedRequest(it,AppRequestEventType.DELETE_DEVICE) }
                 }else{

@@ -1,6 +1,7 @@
 package ua.willeco.clicon.adapters
 
 import android.content.Context
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +12,14 @@ import androidx.recyclerview.widget.RecyclerView
 import ua.willeco.clicon.R
 import ua.willeco.clicon.enums.AppRequestEventType
 import ua.willeco.clicon.model.Facility
+import ua.willeco.clicon.mvp.view.AdapterFacilityItemClick
 import ua.willeco.clicon.mvp.view.PopupEditListener
 
-class FacilitiesAdapter(private val context: Context,private val listener: PopupEditListener, private var faciliList: ArrayList<Facility>) : RecyclerView.Adapter<FacilitiesAdapter.FacilitiesViewHolder>()  {
+class FacilitiesAdapter(
+    private val context: Context,
+    private val listener: PopupEditListener,
+    private val listenerItemClick: AdapterFacilityItemClick,
+    private var faciliList: ArrayList<Facility>) : RecyclerView.Adapter<FacilitiesAdapter.FacilitiesViewHolder>()  {
 
     private var mPopupMenu:PopupMenu? = null
 
@@ -45,6 +51,11 @@ class FacilitiesAdapter(private val context: Context,private val listener: Popup
 
     override fun onBindViewHolder(holder: FacilitiesViewHolder, position: Int) {
         holder.bind(faciliList[position])
+
+        holder.itemView.setOnClickListener {
+            faciliList[position].mac?.let { mMac -> listenerItemClick.clickOnItem(mMac) }
+        }
+
         holder.itemView.setOnLongClickListener{
             showPopupMenu(context,it, position)
             true
@@ -52,17 +63,18 @@ class FacilitiesAdapter(private val context: Context,private val listener: Popup
     }
 
     private fun showPopupMenu(context: Context,mView: View, pos:Int){
-        mPopupMenu = PopupMenu(context,mView)
-        mPopupMenu?.inflate(R.menu.popup_menu)
+        val theme = ContextThemeWrapper(context,R.style.PopupMenu)
+        mPopupMenu = PopupMenu(theme,mView)
+        mPopupMenu?.inflate(R.menu.popup_facility_menu)
 
         val paramAddString = faciliList[pos].name
 
-        val mChange = mPopupMenu?.menu?.findItem(R.id.mnuPopupChange).also {
+        mPopupMenu?.menu?.findItem(R.id.mnuPopupChange).also {
             if (it != null) {
                 it.title = it.title.toString().plus(" $paramAddString")
             }
         }
-        val mDelete = mPopupMenu?.menu?.findItem(R.id.mnuPopupDelete).also {
+        mPopupMenu?.menu?.findItem(R.id.mnuPopupDelete).also {
             if (it != null) {
                 it.title = it.title.toString().plus(" $paramAddString")
             }
@@ -70,11 +82,14 @@ class FacilitiesAdapter(private val context: Context,private val listener: Popup
 
         mPopupMenu?.setOnMenuItemClickListener {
             when(it.itemId){
+                R.id.mnuPopupAddDevice ->{
+                    listener.addNewDeviceItem()
+                }
                 R.id.mnuPopupChange -> {
                     listener.changeItem(AppRequestEventType.UPDATE_FACILITY, faciliList[pos])
                 }
                 R.id.mnuPopupDelete -> {
-                    listener.deleteItem(AppRequestEventType.DELETE_FACILITY,faciliList[pos].mac.toString())
+                    listener.deleteItem(AppRequestEventType.DELETE_FACILITY,faciliList[pos])
                 }
             }
             false

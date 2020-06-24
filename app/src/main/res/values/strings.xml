@@ -30,21 +30,32 @@
     <string name="toast_message_update_facility_success">Объект обновлен</string>
     <string name="toast_message_delete_success">Успешно удаленно</string>
 
-    <string name="alert_dialog_title_delete_device">Вы действительно хотите удалить устройство?</string>
-    <string name="alert_dialog_title_delete_facility">Вы действительно хотите удалить объект?</string>
+    <string name="alert_dialog_title_delete_device">Вы действительно хотите удалить устройство</string>
+    <string name="alert_dialog_title_delete_facility">Вы действительно хотите удалить объект</string>
     <string name="alert_dialog_message_delete_facility">В случае удаления объекта, удаляются все закрепленные за ним устройства</string>
     <string name="alert_dialog_message_delete_device">*Устройство можно будет добавить через соответствующее меню</string>
-    
+
+    <string name="toast_message_empty_device_list">Устройства отсутствуют</string>
+    <string name="toast_message_empty_facility_list">Объекты отсутствуют</string>
+
+    <!-- Boiler widget fields -->
     <string name="boiler_output_temp">Подача</string>
     <string name="boiler_input_temp">Обратка</string>
     <string name="boiler_fuel_screw_temp">Шнек</string>
     <string name="boiler_pwm">Поддув</string>
     <string name="boiler_burner_temp">Обменник</string>
     <string name="boiler_heat_water_temp">ГВС</string>
+    <string name="boiler_mode">режим</string>
+
+    <!--Clicon widgets fields -->
+    <string name="clicon_inside_temp">\u2103 t внутри</string>
+    <string name="clicon_humidity">Влажность</string>
+    <string name="clicon_status_co2">состояние CO2 </string>
 
     <string name="promt_button_cancel">Отмена</string>
     <string name="promt_button_add">Добавить</string>
     <string name="promt_button_ok">Подтвердить</string>
+    <string name="promt_button_neutral_qr">QR</string>
 
     <string name="promt_error_edittext_length_3">Минимум 3 символа</string>
 
@@ -91,12 +102,20 @@
     <string name="error_code_unexpected">Неизвесная ошибка</string>
     <string name="error_code10">Неверный логин или пароль | Пользователь не найден</string>
     <string name="error_code11">Пользователь заблокирован</string>
-    <string name="hint_create_room">Имя объекта</string>
+    <string name="hint_create_facility">Имя объекта</string>
     <string name="hint_create_device">Имя устройства</string>
     <string name="hint_chip_id_device">ChipID устройства</string>
     <string name="title_dialog_create_facility">Добавление Объекта</string>
     <string name="title_dialog_create_device">Добавление устройства</string>
 
     <string name="error_empty_fields">Заполните все поля</string>
+    <string name="edt_device_type_hint">Тип устройства</string>
+    <string name="edt_facility_list_hint">Объект</string>
+
+    <!-- empty value for textViews -->
+    <string name="empty_text_value">--</string>
+
+
+    <string name="message_device_is_already_added">Ошибка! Устройство уже было добавлено в систему</string>
 
 </resources>

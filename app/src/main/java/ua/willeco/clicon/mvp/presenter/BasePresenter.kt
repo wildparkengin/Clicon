@@ -3,8 +3,6 @@ package ua.willeco.clicon.mvp.presenter
 import ua.willeco.clicon.di.component.DaggerPresenterInjector
 import ua.willeco.clicon.di.component.PresenterInjector
 import ua.willeco.clicon.di.module.ApiServiceModule
-import ua.willeco.clicon.di.module.ContextModule
-import ua.willeco.clicon.di.module.SharedPreferencesModule
 import ua.willeco.clicon.mvp.view.BaseView
 
 abstract class BasePresenter<out V: BaseView>(protected val view:V) {
@@ -15,9 +13,7 @@ abstract class BasePresenter<out V: BaseView>(protected val view:V) {
     private val injector: PresenterInjector = DaggerPresenterInjector
         .builder()
         .baseView(view)
-        .contextModule(ContextModule)
         .networkModule(ApiServiceModule)
-        .sharedPreferModule(SharedPreferencesModule)
         .build()
 
     init {
@@ -46,6 +42,15 @@ abstract class BasePresenter<out V: BaseView>(protected val view:V) {
                 injector.inject(this)
             }
             is HomeFragmentPresenter ->{
+                injector.inject(this)
+            }
+            is FacilityDialogPresenter ->{
+                injector.inject(this)
+            }
+            is DeviceDialogPresenter ->{
+                injector.inject(this)
+            }
+            is DeleteDialogPresenter ->{
                 injector.inject(this)
             }
         }

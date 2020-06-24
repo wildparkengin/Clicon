@@ -9,7 +9,7 @@
         <menu>
             <item
                     android:id="@+id/action_add_facility"
-                    android:icon="@drawable/ic_room"
+                    android:icon="@drawable/ic_facility"
                     android:title="@string/promt_popup_menu_add_facility" />
             <item
                     android:id="@+id/action_add_device"

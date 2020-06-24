@@ -1,6 +1,12 @@
 package ua.willeco.clicon.utility
 
+import android.Manifest
+
 object Constants {
+    const val REQUEST_CODE_CAMERA_PERMISSIONS = 10
+
+    val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+
     /**
      * requests url connecting to server
      */
@@ -35,6 +41,8 @@ object Constants {
      */
     const val RESULT_FROM_DIALOG = 0
 
-    const val DIALOG_ARGUMENTS_TITLE = "dialog_title"
+    const val DIALOG_DELETE_ARGUMENTS = "dialog_arg_delete"
+    const val DIALOG_FACILITY_ARGUMENTS = "dialog_arg_facility"
+    const val DIALOG_FACILITY_LIST_DEVICE_ARGUMENTS = "dialog_arg_facility_list"
 
 }

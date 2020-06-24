@@ -36,16 +36,26 @@
     <string name="alert_dialog_message_delete_facility">Warning! If you delete this facility, all included devices will be deleted</string>
     <string name="alert_dialog_message_delete_device">*Deleted device can be added via the *add new* menu</string>
 
+    <string name="toast_message_empty_device_list">List of devices is empty</string>
+    <string name="toast_message_empty_facility_list">List of objects is empty</string>
+
     <string name="boiler_output_temp">Output</string>
     <string name="boiler_input_temp">Input</string>
     <string name="boiler_fuel_screw_temp">Screw</string>
     <string name="boiler_pwm">Pwm</string>
     <string name="boiler_burner_temp">Burner</string>
     <string name="boiler_heat_water_temp">H. water</string>
+    <string name="boiler_mode">boiler mode</string>
+
+    <!--Clicon widgets fiels -->
+    <string name="clicon_inside_temp">\u2103 t inside</string>
+    <string name="clicon_humidity">Humidity</string>
+    <string name="clicon_status_co2">level of CO2 </string>
 
     <string name="promt_button_cancel">Cancel</string>
     <string name="promt_button_add">Add</string>
     <string name="promt_button_ok">Confirm</string>
+    <string name="promt_button_neutral_qr">QR</string>
 
     <string name="promt_error_edittext_length_3">Minimum 3 symbol</string>
 
@@ -92,11 +102,19 @@
     <string name="error_code_unexpected">Unexpected error</string>
     <string name="error_code10">Invalid login or password | User not found</string>
     <string name="error_code11">User banned</string>
-    <string name="hint_create_room">Room name</string>
+    <string name="hint_create_facility">Room name</string>
     <string name="hint_create_device">Device name</string>
     <string name="hint_chip_id_device">Device ChipID</string>
     <string name="title_dialog_create_facility">Create Facility</string>
     <string name="title_dialog_create_device">Add device</string>
 
     <string name="error_empty_fields">Some field is empty</string>
+    <string name="edt_device_type_hint">Type of device</string>
+    <string name="edt_facility_list_hint">Facility</string>
+
+    <!-- empty value for textViews -->
+    <string name="empty_text_value">--</string>
+
+
+    <string name="message_device_is_already_added">Error! Device have already is added</string>
 </resources>

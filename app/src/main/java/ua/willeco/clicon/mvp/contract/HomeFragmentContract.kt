@@ -1,12 +1,12 @@
 package ua.willeco.clicon.mvp.contract
 
-import androidx.fragment.app.DialogFragment
 import ua.willeco.clicon.enums.AppRequestEventType
 import ua.willeco.clicon.enums.DialogViewType
+import ua.willeco.clicon.model.Facility
 import ua.willeco.clicon.model.getRequestsModels.GetDevicesListResponse
-import ua.willeco.clicon.model.getRequestsModels.GetRoomListResponse
-import ua.willeco.clicon.model.getRequestsModels.FacilityCRUDResponse
+import ua.willeco.clicon.model.getRequestsModels.GetFacilityListResponse
 import ua.willeco.clicon.model.getRequestsModels.SimpleResponse
+import ua.willeco.clicon.model.setRequestModel.DeviceRequestModel
 import ua.willeco.clicon.mvp.presenter.HomeFragmentPresenter
 import ua.willeco.clicon.mvp.repository.BaseResponseRepositoryInterface
 import ua.willeco.clicon.mvp.view.BaseView
@@ -21,7 +21,7 @@ interface HomeFragmentContract {
         /**
          * Method to prevent action after login auth success
          */
-        fun initView()
+        fun initListeners()
         /**
          * Displays an error in the view
          * @param error the error to display in the view
@@ -43,15 +43,11 @@ interface HomeFragmentContract {
         /**
          * Method to close animation after get response
          */
-        fun showDialogAddUpdate(type: DialogViewType, eventType: AppRequestEventType, mObj:Any?)
+        fun showCustomDialog(type: DialogViewType, eventType: AppRequestEventType, mObj:Any?)
         /**
          * Method to close animation after get response
          */
-        fun showDialogDelete(eventType: AppRequestEventType, macOrChipID:String)
-        /**
-         * Method to close animation after get response
-         */
-        fun loadFacilitiesRecycler(facilityData: GetRoomListResponse)
+        fun loadFacilitiesRecycler(facilityData: GetFacilityListResponse)
         /**
          * Method to close animation after get response
          */
@@ -70,43 +66,26 @@ interface HomeFragmentContract {
         /**
          * Method to prevent action after login auth success
          */
-        fun validateGetFacilityResponse(response: GetRoomListResponse)
+        fun validateGetFacilityResponse(response: GetFacilityListResponse)
         /**
          * Method to prevent action after login auth success
          */
         fun validateGetDevicesResponse(response: GetDevicesListResponse)
-
         /**
          * Method to prevent action after login auth success
          */
-        fun validateCRUDRoomResponse(responseFacility: FacilityCRUDResponse,requestType: AppRequestEventType)
+        fun validateDialogsPositiveClick(typeDialog: DialogViewType,anyObj:Any?)
         /**
          * Method to prevent action after login auth success
          */
-        fun validateCRUDDevicesResponse(response: SimpleResponse,requestType: AppRequestEventType)
-        /**
-         * Method to prevent action after login auth success
-         */
-        fun getArgumentsFromDialog(dialog:DialogFragment?)
+        fun getTempFacilityList():ArrayList<Facility>?
     }
 
     interface Repository: BaseResponseRepositoryInterface.OnFinishedRequest{
         /**
          * Method to prevent action after login auth success
          */
-        fun addNewFacilityRequest(roomName:String)
-        /**
-         * Method to prevent action after login auth success
-         */
-        fun updateFacilityRequest(any: Any?)
-        /**
-         * Method to prevent action after login auth success
-         */
-        fun deleteFacilityRequest(mac:String)
-        /**
-         * Method to prevent action after login auth success
-         */
-        fun addNewDevicesRequest(device_cid:String, deviceName:String)
+        fun addNewDevicesRequest(device:DeviceRequestModel)
         /**
          * Method to prevent action after login auth success
          */

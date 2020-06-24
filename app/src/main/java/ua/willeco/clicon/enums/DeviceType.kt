@@ -1,7 +1,7 @@
 package ua.willeco.clicon.enums
 
-enum class DeviceType {
-    BOILER_100,
-    BOILER_500,
-    CLICON;
+enum class DeviceType(var stringName:String ) {
+    BOILER_PRO101 ("Boiler 101"),
+    BOILER_PRO500("Boiler 500"),
+    CLICON("Clicon");
 }

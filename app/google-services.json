@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "763750346951",
+    "firebase_url": "https://clicon-4f77c.firebaseio.com",
+    "project_id": "clicon-4f77c",
+    "storage_bucket": "clicon-4f77c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763750346951:android:7c2ed5d75b41e699900ee2",
+        "android_client_info": {
+          "package_name": "ua.willeco.clicon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "763750346951-du3p5vvj5n83gqjush4drc3rfhttaon8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaRVGvLakdpjaxQ0QoqG-kqE5SbEKxJJI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "763750346951-du3p5vvj5n83gqjush4drc3rfhttaon8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

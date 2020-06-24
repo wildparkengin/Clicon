@@ -13,22 +13,22 @@ interface ApiRequests {
 
     @GET("facilities")
     fun getFacilitiesList(
-        @Query("user_id") user_id: Long): Call<GetRoomListResponse>
+        @Query("user_id") user_id: Long): Call<GetFacilityListResponse>
 
     @PUT("add-facility")
     fun createFacility(
-        @Query("user_id") user_id: Long, @Query("name", encoded = true) name: String): Call<FacilityCRUDResponse>
+        @Query("user_id") user_id: Long, @Query("name", encoded = true) name: String): Call<SimpleResponse>
 
     @POST("update-facility")
     fun updateFacility(
         @Query("user_id") user_id: Long,
         @Query("name", encoded = true) name: String,
-        @Query("mac") mac: String): Call<FacilityCRUDResponse>
+        @Query("mac") mac: String): Call<SimpleResponse>
 
     @DELETE("remove-facility")
     fun removeFacility(
         @Query("user_id") user_id: Long,
-        @Query("mac") mac: String): Call<FacilityCRUDResponse>
+        @Query("mac") mac: String): Call<SimpleResponse>
 
     @GET("devices")
     fun getDevicesList(
@@ -38,11 +38,14 @@ interface ApiRequests {
     @PUT("add-device")
     fun addDevice(
         @Query("user_id") user_id: Long,
+        @Query("owner_id") owner_id: Long,
         @Query("device_cid") device_cid: String,
-        @Query("name", encoded = true) name: String): Call<DeviceCRUDResponce>
+        @Query("name", encoded = true) name: String,
+        @Query("type") type: String,
+        @Query("mac") mac: String): Call<SimpleResponse>
 
     @DELETE("remove-device")
     fun removeDevice(
         @Query("user_id") user_id: Long,
-        @Query("device_cid") device_cid: String): Call<DeviceCRUDResponce>
+        @Query("device_cid") device_cid: String): Call<SimpleResponse>
 }

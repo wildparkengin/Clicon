@@ -12,7 +12,6 @@ interface SplashActivityContract {
          * @param error the error to display in the view
          */
         fun showError(error: String)
-
         /**
          * Method to prevent action after login auth success
          */

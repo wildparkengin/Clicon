@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+            android:id="@+id/gr_add"
+            android:checkableBehavior="none">
+        <item
+                android:id="@+id/mnuPopupAddDevice"
+                android:title="@string/dialog_title_add_device"
+                app:showAsAction="ifRoom" />
+    </group>
+    <group
+            android:id="@+id/gr_change"
+            android:checkableBehavior="none">
+        <item
+                android:id="@+id/mnuPopupChange"
+                android:title="@string/promt_popup_menu_edit"
+                app:showAsAction="ifRoom" />
+    </group>
+    <group
+            android:id="@+id/gr_delete"
+            android:checkableBehavior="none">
+        <item
+                android:id="@+id/mnuPopupDelete"
+                android:title="@string/promt_popup_menu_delete"
+                app:showAsAction="ifRoom" />
+    </group>
+</menu>

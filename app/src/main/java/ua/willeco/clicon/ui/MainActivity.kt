@@ -8,6 +8,7 @@ import ua.willeco.clicon.R
 import ua.willeco.clicon.databinding.ActivityMainBinding
 import ua.willeco.clicon.factory.SelectedFragmentFactory
 import ua.willeco.clicon.mvp.view.MainActivityView
+import ua.willeco.clicon.utility.Constants
 
 
 class MainActivity :AppCompatActivity(), MainActivityView{
@@ -77,8 +78,8 @@ class MainActivity :AppCompatActivity(), MainActivityView{
         }
     }
 
-    override fun getContext(): Context {
-        return  this
+    override fun getViewContext(): Context {
+        return this
     }
 
     override fun onBackPressed() {

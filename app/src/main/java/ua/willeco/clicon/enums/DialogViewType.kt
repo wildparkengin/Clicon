@@ -1,7 +1,10 @@
 package ua.willeco.clicon.enums
 
 enum class DialogViewType {
-    NONE,
-    FACILITY_DIALOG,
-    DEVICE_DIALOG
+    ADD_FACILITY,
+    UPDATE_FACILITY,
+    DELETE_FACILITY,
+    ADD_DEVICE,
+    UPDATE_DEVICE,
+    DELETE_DEVICE
 }

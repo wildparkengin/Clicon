@@ -1,8 +1,8 @@
 package ua.willeco.clicon.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,23 +13,25 @@ import ua.willeco.clicon.databinding.FragmentFacilityLayoutBinding
 import ua.willeco.clicon.enums.AppRequestEventType
 import ua.willeco.clicon.enums.DialogViewType
 import ua.willeco.clicon.factory.CustomDialogFactory
-import ua.willeco.clicon.model.Facility
 import ua.willeco.clicon.model.getRequestsModels.GetDevicesListResponse
-import ua.willeco.clicon.model.getRequestsModels.GetRoomListResponse
+import ua.willeco.clicon.model.getRequestsModels.GetFacilityListResponse
 import ua.willeco.clicon.mvp.BaseFragment
 import ua.willeco.clicon.mvp.contract.HomeFragmentContract
 import ua.willeco.clicon.mvp.presenter.HomeFragmentPresenter
-import ua.willeco.clicon.mvp.view.DialogAddUpdateView
+import ua.willeco.clicon.mvp.view.AdapterFacilityItemClick
+import ua.willeco.clicon.mvp.view.DialogsViewInterface
 import ua.willeco.clicon.mvp.view.PopupEditListener
 import ua.willeco.clicon.utility.ViewsElementsUtill
 
-class HomeFragment:BaseFragment<HomeFragmentPresenter>(),HomeFragmentContract.View,DialogAddUpdateView.DialogButtonListeners, PopupEditListener{
+class HomeFragment:BaseFragment<HomeFragmentPresenter>(),HomeFragmentContract.View,DialogsViewInterface.DialogButtonListeners, PopupEditListener,AdapterFacilityItemClick{
 
     private lateinit var binding:FragmentFacilityLayoutBinding
+    private lateinit var mContext:Context
     private lateinit var mFacilityAdapter:FacilitiesAdapter
     private lateinit var mDeviceAdapter:DevicesAdapter
     private var mDialog: DialogFragment? = null
     private lateinit var listenerPopupMenu:PopupEditListener
+    private lateinit var listenerClickFacilityItem:AdapterFacilityItemClick
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,12 +40,15 @@ class HomeFragment:BaseFragment<HomeFragmentPresenter>(),HomeFragmentContract.Vi
     ): View? {
         setHasOptionsMenu(true)
         binding  = FragmentFacilityLayoutBinding.inflate(inflater,container,false)
+        mContext = binding.root.context
+        initListeners()
         presenter.getFacilityListResponse()
         return binding.root
     }
 
-    override fun initView() {
-
+    override fun initListeners() {
+        listenerPopupMenu = this
+        listenerClickFacilityItem = this
     }
 
     override fun showToastMessage(messageType: AppRequestEventType) {
@@ -66,12 +71,12 @@ class HomeFragment:BaseFragment<HomeFragmentPresenter>(),HomeFragmentContract.Vi
             else -> return
         }
 
-        ViewsElementsUtill.showShortToastMessage(binding.root.context,message)
+        ViewsElementsUtill.showShortToastMessage(mContext,message)
 
     }
 
     override fun showToastError(error: String) {
-        ViewsElementsUtill.showShortToastMessage(binding.root.context,error)
+        ViewsElementsUtill.showShortToastMessage(mContext,error)
     }
 
     override fun showLoader() {
@@ -81,34 +86,36 @@ class HomeFragment:BaseFragment<HomeFragmentPresenter>(),HomeFragmentContract.Vi
 
     }
 
-    override fun loadFacilitiesRecycler(facilityData: GetRoomListResponse) {
+    override fun loadFacilitiesRecycler(facilityData: GetFacilityListResponse) {
         if (!facilityData.facilityList.isNullOrEmpty()){
-            listenerPopupMenu = this
             binding.facilityRecycler.apply {
                 layoutManager = GridLayoutManager(context,1,GridLayoutManager.HORIZONTAL,false)
-                mFacilityAdapter = FacilitiesAdapter(context,listenerPopupMenu,facilityData.facilityList)
-                adapter = mFacilityAdapter
+                mFacilityAdapter = FacilitiesAdapter(mContext,listenerPopupMenu,listenerClickFacilityItem,facilityData.facilityList)
+                this.adapter = mFacilityAdapter
             }
         }else{
-            showToastError("Unex error")
+            showToastError(binding.root.context.getString(R.string.toast_message_empty_facility_list))
         }
     }
 
     override fun loadDevicesRecycler(devicesDataResponse: GetDevicesListResponse) {
         try {
-            if (!devicesDataResponse.boiler100List.isNullOrEmpty()){
+            if (!devicesDataResponse.boiler101List.isNullOrEmpty()){
                 binding.facilityRecycler.apply {
                     this.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
                     //mDeviceAdapter = DevicesAdapter(devicesDataResponse.deviceList)
                     this.adapter = mDeviceAdapter
                 }
-                println()
             }else{
-                showToastError("Unex error")
+                showToastError(binding.root.context.getString(R.string.toast_message_empty_device_list))
             }
         }catch (e:Exception){
             e.printStackTrace()
         }
+    }
+
+    override fun getViewContext(): Context {
+        return mContext
     }
 
     override fun instantiatePresenter(): HomeFragmentPresenter {
@@ -123,91 +130,55 @@ class HomeFragment:BaseFragment<HomeFragmentPresenter>(),HomeFragmentContract.Vi
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
             R.id.action_add_facility -> {
-                showDialogAddUpdate(DialogViewType.FACILITY_DIALOG,AppRequestEventType.ADD_FACILITY,null)
+                showCustomDialog(DialogViewType.ADD_FACILITY,AppRequestEventType.ADD_FACILITY,null)
                 true
             }
             R.id.action_add_device -> {
-                showDialogAddUpdate(DialogViewType.DEVICE_DIALOG,AppRequestEventType.ADD_DEVICE, null)
+                showCustomDialog(DialogViewType.ADD_DEVICE,AppRequestEventType.ADD_DEVICE, presenter.getTempFacilityList())
                 true
             }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-    override fun showDialogAddUpdate(type: DialogViewType,eventType: AppRequestEventType,mObj: Any?) {
+    override fun showCustomDialog(type: DialogViewType, eventType: AppRequestEventType, mObj: Any?) {
         mDialog = CustomDialogFactory.createCustomDialog(this,type,eventType,mObj)
         mDialog?.show(childFragmentManager, mDialog?.tag)
     }
 
-    override fun showDialogDelete(eventType: AppRequestEventType,macOrChipID:String) {
-        val builder = AlertDialog.Builder(binding.root.context)
-        var mTitle:String? = null
-        var mMessage:String? = null
+    override fun onDialogPositiveClick(type: DialogViewType, anyObj: Any?) {
+        presenter.validateDialogsPositiveClick(type,anyObj)
+    }
 
-        when(eventType) {
-            AppRequestEventType.DELETE_FACILITY -> {
-                mTitle = binding.root.context.getString(R.string.alert_dialog_title_delete_facility)
-                mMessage =
-                    binding.root.context.getString(R.string.alert_dialog_message_delete_facility)
+    override fun addNewDeviceItem() {
+        showCustomDialog(DialogViewType.ADD_DEVICE,AppRequestEventType.ADD_DEVICE,presenter.getTempFacilityList())
+    }
+
+    override fun deleteItem(itemDeleteType: AppRequestEventType, item: Any) {
+        when(itemDeleteType){
+            AppRequestEventType.DELETE_DEVICE ->{
+                showCustomDialog(DialogViewType.DELETE_DEVICE,itemDeleteType,item)
             }
-            AppRequestEventType.DELETE_DEVICE -> {
-                mTitle = binding.root.context.getString(R.string.alert_dialog_title_delete_device)
-                mMessage =
-                    binding.root.context.getString(R.string.alert_dialog_message_delete_device)
-            } else -> return
-        }
-
-        builder.setTitle(mTitle)
-        builder.setMessage(mMessage)
-        builder.setCancelable(false)
-        builder.setPositiveButton(R.string.promt_button_ok) { dialog, _ ->
-            when (eventType) {
-                AppRequestEventType.DELETE_FACILITY -> {
-                    presenter.deleteFacilityRequest(macOrChipID)
-                }
-                AppRequestEventType.DELETE_DEVICE -> {
-                    presenter.deleteDeviceRequest(macOrChipID)
-                }
-                else -> dialog.dismiss()
+            AppRequestEventType.DELETE_FACILITY ->{
+                showCustomDialog(DialogViewType.DELETE_FACILITY,itemDeleteType,item)
             }
+            else -> null
         }
-            // Display a negative button on alert dialog
-        builder.setNegativeButton(R.string.promt_button_cancel){ dialog, _ ->
-                dialog.dismiss()
-        }
-        builder.show()
     }
 
-    override fun onDialogNegativeClick() {
-        mDialog?.dismiss()
-    }
-
-    override fun onDialogPositiveClick(type: AppRequestEventType,anyObj:Any?) {
-        if (anyObj is Facility){
-            when (type) {
-                AppRequestEventType.UPDATE_FACILITY -> {
-                    presenter.updateFacilityRequest(anyObj)
-                }
-                AppRequestEventType.ADD_FACILITY -> {
-                    anyObj.name?.let { presenter.addNewFacilityRequest(it) }
-                }
-                else -> return
-            }
-        }
-
-        //presenter.getArgumentsFromDialog(mDialog)
-    }
-
-    override fun deleteItem(itemDelete: AppRequestEventType, macOrChipID: String) {
-        showDialogDelete(itemDelete,macOrChipID)
-    }
-
-    override fun changeItem(itemChange: AppRequestEventType, anyItem: Any) {
-        when(itemChange){
+    override fun changeItem(itemChangeType: AppRequestEventType, item: Any) {
+        when(itemChangeType){
             AppRequestEventType.UPDATE_FACILITY -> {
-                showDialogAddUpdate(DialogViewType.FACILITY_DIALOG,AppRequestEventType.UPDATE_FACILITY,anyItem)
+                showCustomDialog(DialogViewType.UPDATE_FACILITY,AppRequestEventType.UPDATE_FACILITY,item)
+            }
+            AppRequestEventType.UPDATE_DEVICE -> {
+                showCustomDialog(DialogViewType.UPDATE_DEVICE,AppRequestEventType.UPDATE_DEVICE,item)
             }
             else -> return
         }
+    }
+
+    override fun clickOnItem(mac: String) {
+        presenter.getDevicesListResponse(mac)
     }
 }

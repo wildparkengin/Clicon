@@ -1,6 +1,7 @@
 package ua.willeco.clicon.ui
 
 import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
@@ -144,6 +145,10 @@ class AuthorizationActivity : BaseActivity<AuthorizationActivityPresenter>(),
 
     override fun getStateCheckBox(): Boolean {
         return binding.checkSaveUserData.isChecked
+    }
+
+    override fun getViewContext(): Context {
+        return binding.root.context
     }
 
     override fun showToast(message: String?) {

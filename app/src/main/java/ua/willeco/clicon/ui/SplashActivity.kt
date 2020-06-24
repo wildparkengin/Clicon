@@ -1,5 +1,6 @@
 package ua.willeco.clicon.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -36,6 +37,10 @@ class SplashActivity :BaseActivity<SplashActivityPresenter>(), SplashActivityCon
         }catch (e:Exception){
             e.printStackTrace()
         }
+    }
+
+    override fun getViewContext(): Context {
+        return applicationContext
     }
 
     override fun onDestroy() {

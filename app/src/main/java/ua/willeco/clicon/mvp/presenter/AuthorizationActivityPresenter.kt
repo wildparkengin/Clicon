@@ -9,6 +9,7 @@ import ua.willeco.clicon.model.getRequestsModels.GetAuthentificateSimpleResponse
 import ua.willeco.clicon.mvp.contract.AuthorizationActivityContract
 import ua.willeco.clicon.mvp.repository.AutorizationRepository
 import ua.willeco.clicon.singletons.CurrentUserSingleton
+import ua.willeco.clicon.singletons.UserSharedPreferences
 import ua.willeco.clicon.utility.Constants
 import ua.willeco.clicon.utility.Security
 import ua.willeco.clicon.utility.Validation
@@ -18,13 +19,14 @@ class AuthorizationActivityPresenter(authorizationActivityView:AuthorizationActi
 
     @Inject
     lateinit var api: ApiRequests
-    @Inject
-    lateinit var client: Retrofit
-    @Inject
-    lateinit var sharedPreferences: SharedPreferences
     lateinit var authRepository: AutorizationRepository
     private lateinit var passCrypt:String
+    lateinit var sharedPreferences:SharedPreferences
     private var subscription: Disposable? = null
+
+    init {
+        sharedPreferences = UserSharedPreferences.provideSharedPreferences(view.getViewContext())
+    }
 
     override fun validateAuthEnteredData(login: String, password: String) {
         var loginCheck: Boolean = false

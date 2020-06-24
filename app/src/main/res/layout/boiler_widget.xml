@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        app:cardBackgroundColor="@color/background_status_bar">
+        app:cardBackgroundColor="@color/colorPrimary">
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -17,7 +17,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="TextView"
+                android:text="@string/empty_text_value"
                 android:textColor="@color/pure_white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -25,11 +25,13 @@
         <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_widget_boiler_name">
+                app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -38,10 +40,10 @@
                     android:orientation="vertical">
 
                 <TextView
-                        android:id="@+id/textView20"
+                        android:id="@+id/txt_boiler_output_temp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
+                        android:text="@string/empty_text_value"
                         android:textAlignment="center"
                         android:textColor="@color/pure_white" />
 
@@ -54,10 +56,10 @@
                         android:textColor="@color/pure_white" />
 
                 <TextView
-                        android:id="@+id/textView22"
+                        android:id="@+id/txt_boiler_input_temp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
+                        android:text="@string/empty_text_value"
                         android:textAlignment="center"
                         android:textColor="@color/pure_white" />
 
@@ -70,10 +72,10 @@
                         android:textColor="@color/pure_white" />
 
                 <TextView
-                        android:id="@+id/textView24"
+                        android:id="@+id/txt_boiler_pwm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
+                        android:text="@string/empty_text_value"
                         android:textAlignment="center"
                         android:textColor="@color/pure_white" />
 
@@ -93,10 +95,10 @@
                     android:orientation="vertical">
 
                 <TextView
-                        android:id="@+id/textView29"
+                        android:id="@+id/txt_boiler_fuel_screw"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
+                        android:text="@string/empty_text_value"
                         android:textAlignment="center"
                         android:textColor="@color/pure_white" />
 
@@ -109,10 +111,10 @@
                         android:textColor="@color/pure_white" />
 
                 <TextView
-                        android:id="@+id/textView19"
+                        android:id="@+id/txt_boiler_heart_water"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
+                        android:text="@string/empty_text_value"
                         android:textAlignment="center"
                         android:textColor="@color/pure_white" />
 
@@ -125,10 +127,10 @@
                         android:textColor="@color/pure_white" />
 
                 <TextView
-                        android:id="@+id/textView27"
+                        android:id="@+id/txt_boiler_burner_temp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
+                        android:text="@string/empty_text_value"
                         android:textAlignment="center"
                         android:textColor="@color/pure_white" />
 
@@ -146,10 +148,9 @@
                 android:id="@+id/linearLayout3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_widget_boiler_name">
 
@@ -161,10 +162,10 @@
                     app:srcCompat="@drawable/wpeco" />
 
             <TextView
-                    android:id="@+id/textView13"
+                    android:id="@+id/txt_boiler_mode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
+                    android:text="@string/empty_text_value"
                     android:textAlignment="center"
                     android:textAllCaps="true"
                     android:textColor="@color/pure_white" />

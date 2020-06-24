@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import ua.willeco.clicon.mvp.presenter.BasePresenter
 import ua.willeco.clicon.mvp.view.BaseView
 
-abstract class BaseFragment<P : BasePresenter<BaseView>> : BaseView, Fragment(){
+abstract class BaseFragment<P : BasePresenter<BaseView>> :Fragment(){
 
     protected lateinit var presenter: P
     protected abstract fun instantiatePresenter(): P
@@ -14,9 +14,5 @@ abstract class BaseFragment<P : BasePresenter<BaseView>> : BaseView, Fragment(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         presenter = instantiatePresenter()
-    }
-
-    override fun getContext(): Context {
-        return context
     }
 }
